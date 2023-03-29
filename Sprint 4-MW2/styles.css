@@ -1,0 +1,61 @@
+*{
+    margin:0;
+    padding:0;
+    border: solid black 3px;
+}
+.flex{
+    display:flex;
+}
+.flex-center{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.grid-1{
+    display:grid;
+    grid-template-rows: 25vh 25vh 25vh 25vh;
+}
+.grid-2{
+    display:grid;
+    grid-template-columns: 25% 25% 25% 25%;
+}
+.full{
+    width:100%;
+    height:100%;
+    justify-content: center;
+    align-items: center;
+}
+.crystal{
+    border:none;
+    max-height: 22vh;
+}
+.crystals{
+    border:none;
+    font-size:40px;
+}
+.crystal:hover{
+    max-height:23vh;
+}
+.crystal:active{
+    max-height:22vh;
+}
+.shop-popup{
+    visibility: hidden;
+    position:absolute;
+    left: 25%;
+    top: 25vh;
+    z-index: 1;
+    background-color: white;
+    width:50%;
+    height:50vh;
+    border:solid gold 2px;
+    border-radius: 5%;
+    display: flex;
+    flex-direction: column;
+}
+.x-out{
+    background-color: red;
+    width:30px;
+    height:30px;
+    align-self: flex-end;
+}
