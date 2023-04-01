@@ -1,0 +1,42 @@
+*{
+    margin:0;
+    padding:0;
+    border: solid black 3px;
+}
+.grid-1{
+    display:grid;
+    grid-template-columns: 15% 60% 25%;
+    height:100vh;
+}
+.grid-2{
+    display:grid;
+    grid-template-rows: 80% 20%;
+    width:100%;
+}
+.flex{
+    display:flex;
+}
+.leaves-left, .leaves-right{
+    position: absolute;
+    border:none;
+}
+.leaves-left{
+    left:-15%;
+    top:-15%;
+    width:60%;
+}
+.leaves-right{
+    left:60%;
+    top:-20%;
+    width:80%;
+    max-width: 800px;
+}
+.coins{
+    border:none;
+    color:white;
+    font-size:30px;
+    margin:30px;
+}
+.tree2{
+    align-items: flex-end;
+}
