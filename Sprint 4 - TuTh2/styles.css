@@ -1,0 +1,91 @@
+*{
+    margin:0;
+    padding:0;
+    border: solid black 3px;
+}
+.grid-1{
+    display: grid;
+    grid-template-columns: 30% 70%;
+    height:100vh;
+}
+.grid-2{
+    display:grid;
+    grid-template-rows: 30% 70%;
+    width:100%;
+}
+.grid-3{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    height:100%;
+}
+.grid-4{
+    display:grid;
+    grid-template-columns: 70% 30%;
+    width:100%;
+}
+.grid-5{
+    display:grid;
+    grid-template-columns: 30% 40% 15% 15%;
+    width:100%;
+    height:100vh;
+}
+.grid-6{
+    display: grid;
+    grid-template-rows: 20% 40% 40%;
+    height: 100%;
+}
+.flex{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.index-link, .battlefield-link, .farm-link{
+    font-size:50px;
+    padding:10px;
+    border:solid darkslategray 1px;
+    background-color: aliceblue;
+    color:grey;
+    border-radius: 30px;
+    cursor: pointer;
+}
+a{
+    border:none;
+}
+.stove{
+    width:60%;
+    height:50%;
+    background-color: black;
+    align-self: flex-end;
+}
+.flex-stovebox{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.farmland{
+    display:grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    margin: auto 0;
+    width:60%;
+    height:45%;
+    border:none;
+    background-color: green;
+}
+.plot{
+    width:100%;
+    height:100%;
+    border-radius:100%;
+    background-color: saddlebrown;
+}
+.stove:active{
+    background-color: brown;
+    transition: .15s ease;
+}
+.crop{
+    transition: 5s ease;
+    width:5px;
+    height:5px;
+    border-radius: 100%;
+    border:none;
+}
