@@ -1,3 +1,4 @@
+import { cropArray,soilArray } from "./lists.js";
 const plot1 = document.getElementById("crop1");
 const plot2 = document.getElementById("crop2");
 const plot3 = document.getElementById("crop3");
@@ -16,10 +17,9 @@ let plotList = [plot1, plot2, plot3, plot4, plot5,
                 plot6, plot7, plot8, plot9, plot10, 
                 plot11, plot12];
 
-let cropArray = ["./stinkweed.jpg"]; //move to separate file
+
 let intervalIDList = []; //used to clear crops
-gameLoop();
-gameLoop();
+
 gameLoop();
 function gameLoop(cropID){
     let plotNumber = plotCounter;
@@ -28,7 +28,6 @@ function gameLoop(cropID){
     }, 5500));
     plotCounter++;
 }
-
 
 function createCrop(plot, imgIndex){ //one iteration of growth
     const crop = document.createElement("img");
@@ -41,9 +40,45 @@ function createCrop(plot, imgIndex){ //one iteration of growth
 }
 
 function grow(crop,plot){
-    crop.style.transform = "scale(1000%)";
+    crop.style.transform = "scale(2000%)";
     setTimeout(() => {
         plot.removeChild(crop);
         //play harvest noise
-    }, 5050);
+    }, 5550);
 }
+
+//pop-ups
+const cropShop = document.querySelector(".crop-shop");
+const soilShop = document.querySelector(".soil-shop");
+const cropShopX = document.querySelector(".x-out-crop-shop");
+const soilShopX = document.querySelector(".x-out-soil-shop");
+const cropShopButton = document.querySelector(".crop-button");
+const soilShopButton = document.querySelector(".soil-button");
+
+cropShopButton.addEventListener("click",()=>{
+    cropShop.style.visibility = "visible";
+});
+cropShopX.addEventListener("click",()=>{
+    cropShop.style.visibility = "hidden";
+});
+
+soilShopButton.addEventListener("click",()=>{
+    soilShop.style.visibility = "visible";
+});
+soilShopX.addEventListener("click",()=>{
+    soilShop.style.visibility = "hidden";
+});
+
+cropArray.forEach(crop => {
+    const cropIMG = document.createElement("img");
+    cropIMG.src = crop;
+    cropIMG.classList.add("shop-item");
+    cropShop.appendChild(cropIMG);
+});
+
+soilArray.forEach(soil => {
+    const soilColor = document.createElement("div");
+    soilColor.style.backgroundColor = soil;
+    soilColor.classList.add("shop-item");
+    soilShop.appendChild(soilColor);
+});

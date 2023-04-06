@@ -40,13 +40,14 @@
     align-items: center;
 }
 .index-link, .battlefield-link, .farm-link{
-    font-size:50px;
-    padding:10px;
+    padding:2vmin;
+    font-size:3vmin;
     border:solid darkslategray 1px;
     background-color: aliceblue;
     color:grey;
     border-radius: 30px;
     cursor: pointer;
+    transition: .3s ease;
 }
 a{
     border:none;
@@ -88,4 +89,64 @@ a{
     height:5px;
     border-radius: 100%;
     border:none;
+}
+.crop-button, .soil-button{
+    width: 80%;
+    height: 50%;
+    border-radius: 15%;
+    border:solid darkslategray 1px;
+    background-color: aliceblue;
+    color:grey;
+    font-size:5vmin;
+    transition: .3s ease;
+}
+.crop-button:hover, .soil-button:hover, .index-link:hover, .battlefield-link:hover, .farm-link:hover{
+    background-color: lightgray;
+    cursor:pointer;
+}
+.farm-title{
+    text-align: center;
+    font-size:7vmin;
+    color:black;
+    border:none;
+    font-weight:normal;
+}
+.pop-up{
+    visibility: hidden;
+    position: absolute;
+    top:20%;
+    left:50%;
+    transform: translate(-50%);
+    width:60%;
+    height:70vh;
+    background-color: aliceblue;
+    border:solid darkslategrey 1px;
+    z-index: 2;
+    border-radius: 5%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.x-out-crop-shop, .x-out-soil-shop{
+    position: absolute;
+    right:0;
+    top:0;
+    background-color: red;
+    width:4vmin;
+    height:4vmin;
+    border:none;
+    border-radius: 15%;
+    z-index: 2;
+    margin:1vmin;
+    font-size: 3vmin;
+    text-align: center;
+    font-weight: bold;
+}
+.x-out-crop-shop:hover, .x-out-soil-shop:hover{
+    cursor:pointer;
+}
+.shop-item{
+    width:20vmin;
+    height: 20vmin;
+    border:solid darkslategray 1px;
+    border-radius: 5%;
 }
