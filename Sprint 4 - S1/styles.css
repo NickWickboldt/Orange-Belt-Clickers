@@ -38,5 +38,30 @@
     margin:30px;
 }
 .tree2{
-    align-items: flex-end;
+    justify-content: center;
+    flex-direction: column-reverse;
+    align-items: center;
+}
+.presents{
+    width:80%;
+    height:20%;
+    align-self: center;
+    border-radius: 100%;
+    z-index:1;
+}
+.presents:hover{
+    width:85%;
+    height:21%;
+}
+.presents:active{
+    width:80%;
+    height:20%;
+}
+.grid-3{
+    display:grid;
+    grid-template-columns: 10% 20% 15% 10% 25% 10% 10%;
+}
+.animal1, .animal2, .animal3, .stand1, .stand2, .water, .beach-ball{
+    width: 100%;
+    border:none;
 }
