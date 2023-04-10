@@ -59,3 +59,26 @@
     height:30px;
     align-self: flex-end;
 }
+.armor, .enchantments, .auto-clicker{
+    width:30%;
+    height:40%;
+    border:solid goldenrod 2px;
+    border-radius: 20px;
+    background-color: burlywood;
+}
+.upgrades{
+    display:flex;
+    width:100%;
+    height:90%;
+    justify-content: space-around;
+    align-items: center;
+    border:none;
+}
+.armor{
+    background-image: url("./armor.png");
+    background-size: cover;
+}
+.enchantments{
+    background-image: url("./enchantments.png");
+    background-size: cover;
+}

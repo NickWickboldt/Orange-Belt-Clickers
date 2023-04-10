@@ -6,12 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MW2 Clicker Game: Multiverse Adventure</title>
     <link rel="stylesheet" href="./styles.css">
-    <script src="./click.js" defer></script>
+    <script src="./click.js" defer type="module"></script>
+    <script src="./trader.js" defer type="module"></script>
 </head>
 <body>
     <div class="grid-1">
         <div class="flex-center" style="justify-content: space-around;">
-            <img src="" alt="_WanderingTrader">
+            <img src="" alt="_WanderingTrader" class="trader">
             <p class="crystals">Crystals: </p>
         </div>
         <div class="flex" style="align-items: center; justify-content: flex-end;">
@@ -44,6 +45,11 @@
     </div>
     <div class="shop-popup">
         <div class="x-out"></div>
+        <div class="upgrades">
+            <button class="armor">Armor</button>
+            <button class="enchantments">Enchantments</button>
+            <button class="auto-clicker"></button>
+        </div>
     </div>
 </body>
 </html>
