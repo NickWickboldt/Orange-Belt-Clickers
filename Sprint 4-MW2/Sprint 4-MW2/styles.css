@@ -1,0 +1,95 @@
+*{
+    margin:0;
+    padding:0;
+    border: solid black 3px;
+}
+.flex{
+    display:flex;
+}
+.flex-center{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.grid-1{
+    display:grid;
+    grid-template-rows: 25vh 25vh 25vh 25vh;
+}
+.grid-2{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2,25vh);
+}
+.full{
+    width:100%;
+    height:100%;
+    justify-content: center;
+    align-items: center;
+}
+.crystal{
+    border:none;
+    max-height: 22vh;
+}
+.crystals{
+    border:none;
+    font-size:40px;
+}
+.crystal:hover{
+    max-height:23vh;
+}
+.crystal:active{
+    max-height:22vh;
+}
+.shop-popup{
+    visibility: hidden;
+    position:absolute;
+    left: 25%;
+    top: 25vh;
+    z-index: 1;
+    background-color: white;
+    width:50%;
+    height:50vh;
+    border:solid gold 2px;
+    border-radius: 5%;
+    display: flex;
+    flex-direction: column;
+}
+.x-out{
+    background-color: red;
+    width:30px;
+    height:30px;
+    align-self: flex-end;
+}
+.armor, .enchantments, .auto-clicker{
+    width:30%;
+    height:40%;
+    border:solid goldenrod 2px;
+    border-radius: 20px;
+    background-color: burlywood;
+}
+.upgrades{
+    display:flex;
+    width:100%;
+    height:90%;
+    justify-content: space-around;
+    align-items: center;
+    border:none;
+}
+.armor{
+    background-image: url("./armor.png");
+    background-size: cover;
+}
+.enchantments{
+    background-image: url("./enchantments.png");
+    background-size: cover;
+}
+.trader{
+    width:40vmin;
+    height:10vmin;
+    border:none;
+}
+.spaceship, .inventory, .teleporter{
+    width:90%;
+    height:90%;
+    border:none;
+}
