@@ -17,7 +17,8 @@
 }
 .grid-2{
     display:grid;
-    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2,25vh);
 }
 .full{
     width:100%;
@@ -81,4 +82,14 @@
 .enchantments{
     background-image: url("./enchantments.png");
     background-size: cover;
+}
+.trader{
+    width:40vmin;
+    height:10vmin;
+    border:none;
+}
+.spaceship, .inventory, .teleporter{
+    width:90%;
+    height:90%;
+    border:none;
 }

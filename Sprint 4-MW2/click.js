@@ -3,7 +3,7 @@ const crystal = document.querySelector(".crystal");
 const crystalLabel = document.querySelector(".crystals");
 const autoClickerButton = document.querySelector(".auto-clicker");
 
-export let crystals = 5000;
+ let crystals = 5000;
 let clickAmount = 1;
 crystalLabel.innerHTML = "Crystals: 0";
 
@@ -43,3 +43,29 @@ function autoClickerStart(){
         crystalLabel.innerHTML = "Crystals: " + crystals;
     }, autoClickInterval);
 }
+
+const trader = document.querySelector(".trader");
+let chance = 0;
+const hundred = 100;
+trader.style.visibility = "hidden";
+
+setInterval(() => {
+    trader.style.visibility = "visible";
+    chance = Math.round(Math.random() * 100);
+    setTimeout(() => {
+        trader.style.visibility = "hidden";
+    }, 30000);
+}, 180000);
+
+trader.addEventListener("click",()=>{
+    if(trader.style.visibility === "visible"){
+        if(chance===1){
+            crystals = 0;
+        }else if(chance<50){
+            crystals*=2;
+        }else{
+            crystals+=1;
+        }
+    }
+    crystalLabel.innerHTML = "Crystals: " + crystals;
+});
