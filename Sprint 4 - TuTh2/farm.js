@@ -20,11 +20,16 @@ let plotList = [plot1, plot2, plot3, plot4, plot5,
 
 let intervalIDList = []; //used to clear crops
 
-gameLoop();
+gameLoop(0);
+gameLoop(1);
+gameLoop(2);
+gameLoop(3);
+gameLoop(4);
+gameLoop(5);
 function gameLoop(cropID){
     let plotNumber = plotCounter;
     intervalIDList.push(setInterval(() => { //growth interval
-        createCrop(plotList[plotNumber], 0); // 0->cropID
+        createCrop(plotList[plotNumber], cropID); // 0->cropID
     }, 5500));
     plotCounter++;
 }

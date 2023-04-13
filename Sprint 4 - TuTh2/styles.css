@@ -1,7 +1,8 @@
 *{
     margin:0;
     padding:0;
-    border: solid black 3px;
+    /* border: solid black 3px; */
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 .grid-1{
     display: grid;
@@ -77,7 +78,7 @@ a{
     width:100%;
     height:100%;
     border-radius:100%;
-    background-color: saddlebrown;
+    background-color: grey;
 }
 .stove:active{
     background-color: brown;
@@ -149,4 +150,51 @@ a{
     height: 20vmin;
     border:solid darkslategray 1px;
     border-radius: 5%;
+}
+.flex-end{
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding:2vmin;
+}
+.crop-storage{
+    position: absolute;
+    right:3vmin;
+    top:3vmin;
+    width:25%;
+    height:86%;
+    border:solid darkslategrey 1px;
+    background-color:grey;
+    z-index: 1;
+    border-radius: 5%;
+}
+.crop-storage-label{
+    text-align: center;
+    font-size:4vmin;
+    padding:1vmin;
+    border-bottom: solid darkslategrey 1px;
+}
+.crop-storage-crops{
+    font-size:3vmin;
+    list-style-type: none;
+    text-align: center;
+    padding:2vmin;
+}
+.storage-crop{
+    padding:.2vmin;
+}
+.collect-crops{
+    font-size:3vmin;
+    width:100%;
+    height:5vmin;
+    background-color: aliceblue;
+    border-radius: 5%;
+    transition: .3s ease;
+}
+.collect-crops:hover{
+    background-color: lightgrey;
+    cursor:pointer;
+}
+.collect-crops:active{
+    background-color: darkgrey;
 }
