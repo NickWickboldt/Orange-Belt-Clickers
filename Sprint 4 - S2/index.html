@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>S2 Clicker Game: Click-A-Nick</title>
     <link rel="stylesheet" href="./styles.css">
-    <script src="./click.js" defer></script>
+    <script src="./click.js" defer type="module"></script>
+    <script src="./heads.js" defer type="module"></script>
+    <script src="./popups.js" defer></script>
 </head>
 <body>
     <div class="grid-1">
@@ -28,6 +30,18 @@
             <div class="flex"></div>
             <div class="flex"></div>
         </div>
+    </div>
+    <div class="totem-popup">
+        <button class="totem-x">X</button>
+        <h1 class="totems-title">Totems</h1>
+    </div>
+    <div class="upgrades-popup">
+        <button class="upgrades-x">X</button>
+        <h1 class="upgrades-title">Upgrades</h1>
+    </div>
+    <div class="shop-popup">
+        <button class="shop-x">X</button>
+        <h1 class="shop-title">Shop</h1>
     </div>
 </body>
 </html>

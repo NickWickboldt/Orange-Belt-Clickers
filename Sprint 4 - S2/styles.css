@@ -40,10 +40,74 @@
     margin-right:15px;
     border:none;
 }
+.totems, .upgrades, .shop{
+    width:10vmin;
+    transition: .3s ease;
+}
 .berries, .sps{
     font-size:30px;
 }
 .lava-box{
+    width:100%;
+    height:100%;
     background-image: url("./images/lava.png");
     background-size: cover;
+}
+.lava-box-head{
+    position: absolute;
+    top:0;
+    width: 100px;
+    height:100px;
+    border-radius: 100%;
+    border: solid darkslategrey 1px;
+    transition: 5s ease;
+    background-color: aqua;
+    visibility: visible;
+}
+.totems:hover, .upgrades:hover, .shop:hover{
+    width:12vmin;
+    cursor:pointer;
+    border:solid darkslategrey 1px;
+    background-color: grey;
+    border-radius:15%;
+}
+.totem-popup, .upgrades-popup, .shop-popup{
+    position: absolute;
+    top:10vmin;
+    left:50%;
+    transform: translate(-50%);
+    width:120vmin;
+    height:80vmin;
+    border: solid darkslategrey 4px;
+    border-radius:5%;
+    background-color: bisque;
+    visibility: hidden;
+    z-index: 1;
+}
+.totem-x, .upgrades-x, .shop-x{
+    background-color: crimson;
+    width:5vmin;
+    height:5vmin;
+    text-align: center;
+    font-size:3vmin;
+    border: solid black 1px;
+    position: absolute;
+    top:2vmin;
+    right:2vmin;
+    transform: .3s ease;
+    border-radius: 5%;
+}
+.totem-x:hover, .upgrades-x:hover, .shop-x:hover{
+    background-color: rgb(185, 15, 49);
+    cursor: pointer;
+}
+.totems-title, .upgrades-title, .shop-title{
+    position: absolute;
+    top:1vmin;
+    left:50%;
+    text-align: center;
+    border:none;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    transform: translate(-50%);
+    font-size:6vmin;
 }
