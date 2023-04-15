@@ -4,32 +4,44 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>S1 Clicker Game: Baby Animal Beach Party</title>
+    <title>S2 Clicker Game: Click-A-Nick</title>
     <link rel="stylesheet" href="./styles.css">
-    <script src="./click.js" defer></script>
+    <script src="./click.js" defer type="module"></script>
+    <script src="./heads.js" defer type="module"></script>
+    <script src="./popups.js" defer></script>
 </head>
 <body>
     <div class="grid-1">
-        <div class="flex" style="background-color: rgb(65, 37, 2);"></div>
         <div class="grid-2">
-            <div class="flex" style="background-color: lightskyblue"></div>
-            <div class="grid-3" style="background-color: rgb(216,175,124)">
-                <img src="./images/bunny.webp" alt="" class="animal1">
-                <img src="./images/stand-1.png" alt="" class="stand1">
-                <img src="./images/water.png" alt="" class="water">
-                <img src="./images/beachball.png" alt="" class="beach-ball">
-                <img src="./images/stand-2.png" alt="" class="stand2">
-                <img src="./images/koala.png" alt="" class="animal2">
-                <img src="./images/cham.png" alt="" class="animal3">
+            <div class="flex">
+                <p class="title">Click-A-Nick</p>
+                <img src="" alt="_Nick" class="nick">
+            </div>
+            <div class="flex">
+                <p class="berries">Strawberries: 0</p>
+                <p class="sps">SPS: 0</p>
+                <img src="./images/totems.png" alt="_totems" class="totems">
+                <img src="./images/upgrade.png" alt="_upgrades" class="upgrades">
+                <img src="./images/shop.png" alt="_shop" class="shop">
             </div>
         </div>
-        <div class="flex tree2" style="background-color: rgb(65, 37, 2);">
-            <p class="coins">Chameleon Coins: 0</p>
-            <img src="https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/18936/christmas-presents-clipart-md.png" alt="" class="presents">
+        <div class="grid-3">
+            <div class="flex lava-box"></div>
+            <div class="flex"></div>
+            <div class="flex"></div>
         </div>
-        
-        <img src="./images/leaves.png" alt="_leaves" class="leaves-left">
-        <img src="./images/leaves.png" alt="_leaves" class="leaves-right">
+    </div>
+    <div class="totem-popup">
+        <button class="totem-x">X</button>
+        <h1 class="totems-title">Totems</h1>
+    </div>
+    <div class="upgrades-popup">
+        <button class="upgrades-x">X</button>
+        <h1 class="upgrades-title">Upgrades</h1>
+    </div>
+    <div class="shop-popup">
+        <button class="shop-x">X</button>
+        <h1 class="shop-title">Shop</h1>
     </div>
 </body>
 </html>
