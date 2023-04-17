@@ -25,7 +25,7 @@ export let pickaxeArray = [
     "./items/stone_pickaxe.png",
     "./items/iron_pickaxe.png",
     "./items/lapis_pickaxe.png",
-    "./items/gold_pickaxe.png",
+    "./items/golden_pickaxe.png",
     "./items/redstone_pickaxe.png",
     "./items/diamond_pickaxe.png",
     "./items/emerald_pickaxe.png",
@@ -42,4 +42,10 @@ export let pickaxeArray = [
     "./items/dragon_pickaxe.png",
     "./items/shulker_pickaxe.png",
     "./items/bedrock_pickaxe.png"
+];
+
+export let dimensionList = [
+    "./dimensions/overworld.jpeg",
+    "./dimensions/nether.png",
+    "./dimensions/end.avif",
 ];

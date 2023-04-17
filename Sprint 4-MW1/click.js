@@ -1,11 +1,11 @@
-import {blockArray, pickaxeArray} from "./lists.js";
+import {blockArray, pickaxeArray, dimensionList} from "./lists.js";
 
 const block = document.querySelector(".block");
 let blockAmountLabel = document.querySelector(".blocks");
 let pickaxe = document.querySelector(".pickaxe");
 const blockUpgradeButton = document.querySelector(".block-upgrade");
 
-let blockAmount = 1000;
+let blockAmount = 1000000000000;
 let blockUpgradeCost = 20;
 let blockUpgradeCounter = 0;
 let multipliers = {
@@ -61,5 +61,23 @@ pickaxeUpgradeButton.addEventListener("click",()=>{
         pickaxeUpgradeCost*=3;
         pickaxeUpgradeButton.innerHTML = "Pickaxe Upgrade: " + pickaxeUpgradeCost;
         blockAmountLabel.innerHTML = "Block: " + blockAmount;/////
+    }
+});
+
+const dimensionButton = document.querySelector(".dimension");
+let currentDimension = 0;
+let dimensionArray = [0, 1000000, 1000000000];
+
+document.body.style.backgroundImage = "url(" + dimensionList[0] + ")";
+dimensionButton.innerHTML = "Dimension Hop: " + dimensionArray[1];
+dimensionButton.addEventListener("click",()=>{
+    if(blockAmount>= dimensionArray[currentDimension+1]){
+        blockAmount -= dimensionArray[currentDimension+1];
+        currentDimension++;
+        dimensionButton.innerHTML = 
+        "Dimension Hop: " + dimensionArray[currentDimension+1];
+        blockAmountLabel.innerHTML = "Blocks: " + blockAmount;
+        document.body.style.backgroundImage = 
+        "url(" + dimensionList[currentDimension] + ")";
     }
 });
