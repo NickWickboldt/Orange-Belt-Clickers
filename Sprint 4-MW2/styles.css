@@ -93,3 +93,32 @@
     height:90%;
     border:none;
 }
+.spaceship{
+    animation: rocketMovement;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes rocketMovement{
+    from{
+        transform: rotateZ(0deg);
+    }
+    25%{
+        transform: rotateZ(270deg);
+    }
+    75%{
+        transform: rotateZ(90deg);
+    }
+    to{
+        transform: rotateZ(0deg);
+    }
+}
+
+.shop{
+    width: 30vmin;
+}
+.spinner{
+    width:10vw;
+    height:10vw;
+    border:none;
+}

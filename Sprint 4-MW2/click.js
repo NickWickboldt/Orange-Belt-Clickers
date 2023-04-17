@@ -54,7 +54,7 @@ setInterval(() => {
     chance = Math.round(Math.random() * 100);
     setTimeout(() => {
         trader.style.visibility = "hidden";
-    }, 30000);
+    }, 5000);
 }, 180000);
 
 trader.addEventListener("click",()=>{
