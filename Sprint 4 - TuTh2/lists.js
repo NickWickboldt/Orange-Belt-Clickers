@@ -86,3 +86,37 @@ export let recipes = {
         greenTree: 50
     }
 }
+
+export let cropStorage = [
+    -1, //stinkweed
+    -1, //blowflower
+    -1, //toxic shrooms
+    -1, //zucchini
+    -1, //purple stalk
+    -1, //quantum onions
+    -1, //tri stemmed carrots
+    -1, //green glob leaf
+    -1, //green tree
+]
+
+const stinkweed = document.getElementById("stinkweed");
+const blowflower = document.getElementById("blowflower");
+const toxicShrooms = document.getElementById("toxicshrooms");
+const zucchini = document.getElementById("zucchini");
+const purpleStalk = document.getElementById("purplestalk");
+const quantumOnions = document.getElementById("quantumonions");
+const triStemmedCarrots = document.getElementById("tristemmedcarrots");
+const greenGlobLeaf = document.getElementById("greenglobleaf");
+const greenTree = document.getElementById("greentree");
+
+export let cropStorageLabels = [    //list of <li> tags displaying amount of crop
+    stinkweed,
+    blowflower,
+    toxicShrooms,
+    zucchini,
+    purpleStalk,
+    quantumOnions,
+    triStemmedCarrots,
+    greenGlobLeaf,
+    greenTree
+];

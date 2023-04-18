@@ -1,4 +1,4 @@
-import { cropArray,soilArray } from "./lists.js";
+import { cropArray,soilArray,cropStorage,cropStorageLabels } from "./lists.js";
 const plot1 = document.getElementById("crop1");
 const plot2 = document.getElementById("crop2");
 const plot3 = document.getElementById("crop3");
@@ -26,10 +26,15 @@ gameLoop(2);
 gameLoop(3);
 gameLoop(4);
 gameLoop(5);
+gameLoop(6);
+gameLoop(7);
+gameLoop(8);
 function gameLoop(cropID){
     let plotNumber = plotCounter;
     intervalIDList.push(setInterval(() => { //growth interval
         createCrop(plotList[plotNumber], cropID); // 0->cropID
+        cropStorage[cropID]++;
+        cropStorageLabels[cropID].innerHTML = cropStorage[cropID];
     }, 5500));
     plotCounter++;
 }
