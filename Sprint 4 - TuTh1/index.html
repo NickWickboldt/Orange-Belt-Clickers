@@ -7,6 +7,7 @@
     <title>TuTh1 Clicker Game: Banana Empire Robot Invasion</title>
     <link rel="stylesheet" href="./styles.css">
     <script src="./click.js" defer></script>
+    <script src="./hud.js" defer></script>
 </head>
 <body>
     <div class="grid-1">
@@ -16,23 +17,35 @@
                     <p class="banana-amount">Bananas: 0</p>
                 </div>
                 <div class="flex shop-container">
-                    <img src="./shop.png" alt="" class="shop">
+                    <img src="./images/shop.png" alt="" class="shop">
                 </div>
             </div>
             <div class="grid-4">
                 <div class="flex flex-center">
-                    <img src="./spaceship.png" alt="" class="flex spaceship">
+                    <img src="./images/spaceship.png" alt="" class="flex spaceship">
                 </div>
                 <div class="flex attack-monkeys"></div>
                 <div class="flex flex-center">
-                    <img src="./tree.jpeg" alt="" class="tree">
+                    <img src="./images/tree.jpeg" alt="" class="tree">
                 </div>
             </div>
             <div class="flex">
-                <img src="./inventory.png" alt="" class="inventory">
+                <img src="./images/inventory.png" alt="" class="inventory">
             </div>
         </div>
         <div class="ground"></div>
+    </div>
+    <div class="shop-hud">
+        <div class="x-out1">X</div>
+        <div class="items">
+            <button class="defense">Defense Upgrade</button>
+            <button class="auto-clicker">Auto Clicker Upgrade</button>
+            <button class="speed">Speed Upgrade</button>
+            <button class="weapons">Weapon Upgrade</button>
+        </div>
+    </div>
+    <div class="inventory-hud">
+        <div class="x-out2">X</div>
     </div>
 </body>
 </html>
