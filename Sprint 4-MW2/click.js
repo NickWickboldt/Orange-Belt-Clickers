@@ -3,7 +3,7 @@ const crystal = document.querySelector(".crystal");
 const crystalLabel = document.querySelector(".crystals");
 const autoClickerButton = document.querySelector(".auto-clicker");
 
- let crystals = 5000;
+let crystals = 5000;
 let clickAmount = 1;
 crystalLabel.innerHTML = "Crystals: 0";
 
@@ -68,4 +68,30 @@ trader.addEventListener("click",()=>{
         }
     }
     crystalLabel.innerHTML = "Crystals: " + crystals;
+});
+
+const spinner = document.querySelector(".spinner");
+spinner.style.transition = "5s ease";
+
+spinner.addEventListener("click",()=>{
+    let result = Math.round(Math.random()*360); //random 0deg - 360deg
+    let spinDegrees = result + 3000; 
+    spinner.style.transform = "rotateZ(" + spinDegrees + "deg)";
+});
+
+let armorButton = document.querySelector(".armor");
+let armor = {
+    price: 500,
+    multiplier: 2
+}
+armorButton.addEventListener("mouseover",()=>{
+    armorButton.style.backgroundImage = "url()"; //remove bg
+    armorButton.style.backgroundColor = "darkslategrey"; //bg color
+    armorButton.style.color = "white"; //text color
+    armorButton.innerHTML = armor.price; //set text to price
+});
+armorButton.addEventListener("mouseleave",()=>{
+    armorButton.style.backgroundImage = "url(./armor.png)"; //add bg
+    armorButton.style.backgroundColor = "burlywood"; //reset bg color
+    armorButton.innerHTML = ""; //remove text
 });
