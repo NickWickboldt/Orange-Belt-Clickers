@@ -2,7 +2,7 @@ export let weaponList = [
     "./images/mallet.png",
     "./images/sling-shot.png",
     "./images/bow-arrow.png",
-    "./images/flamethrower.",
+    "./images/flamethrower.png",
     "./images/water-gun.png",
     "./images/laser-pistol.png",
     "./images/laser-blaster.png",

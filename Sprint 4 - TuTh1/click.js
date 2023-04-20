@@ -1,3 +1,4 @@
+import { weaponList } from "./lists.js";
 const bananaAmount = document.querySelector(".banana-amount");
 const tree = document.querySelector(".tree");
 const attackMonkeyBox = document.querySelector(".attack-monkeys");
@@ -13,8 +14,8 @@ let upgradeCosts = {
     weapons: 200,
     weaponsMultiplier: 2
 }
-
-let bananas = 0;
+let currentWeaponIMG = 0;
+let bananas = 2000000;
 
 tree.addEventListener("click",()=>{
     bananas++;
@@ -29,6 +30,7 @@ function createMonkey(){
 }
 let timeoutID = attack();
 function attack(){
+    let id;
     return monkeyArray.forEach(monkey => {
         return id = setTimeout(() => {
             monkey.style.transition = "10s ease";
@@ -79,12 +81,26 @@ speedButton.addEventListener("mouseleave",()=>{
 
 weaponButton.addEventListener("mouseover",()=>{
     weaponButton.innerHTML = upgradeCosts.weapons;
-    const weaponIMG = document.createElement("img");
-    weaponIMG.alt = "w"; // --> change to src & create list
-    weaponIMG.classList.add("weapon-img");
-    weaponButton.appendChild(weaponIMG);
+    updateWeaponIMG();
 });
 weaponButton.addEventListener("mouseleave",()=>{
     weaponButton.innerHTML = "Weapon Upgrade";
+    
 });
 
+weaponButton.addEventListener("click",()=>{
+    if(bananas>=upgradeCosts.weapons){
+        bananas = bananas - upgradeCosts.weapons;
+        upgradeCosts.weapons = upgradeCosts.weapons * upgradeCosts.weaponsMultiplier;
+        bananaAmount.innerHTML = "Bananas: " + bananas;
+        weaponButton.innerHTML = upgradeCosts.weapons;
+        currentWeaponIMG++;
+    }
+});
+
+function updateWeaponIMG(){
+    const weaponIMG = document.createElement("img");
+    weaponIMG.src = weaponList[currentWeaponIMG];
+    weaponIMG.classList.add("weapon-img");
+    weaponButton.appendChild(weaponIMG);
+}
