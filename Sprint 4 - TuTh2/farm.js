@@ -92,3 +92,14 @@ soilArray.forEach(soil => {
     soilColor.classList.add("shop-item");
     soilShop.appendChild(soilColor);
 });
+
+const kitchenButton = document.querySelector(".index-link");
+
+kitchenButton.addEventListener("click",()=>{
+    let cropSender = [];
+    for(let i = 0; i<cropStorage.length; i++){
+        cropSender.push(cropStorage[i]);
+    }
+    window.localStorage.setItem("crop_storage",cropSender);
+    window.location.href = "./index.html";
+});
