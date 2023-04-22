@@ -111,3 +111,25 @@
     transform: translate(-50%);
     font-size:6vmin;
 }
+.auto-box{
+    background-image: url();
+    background-size: contain;
+    display: flex;
+    align-items: center;
+}
+.auto-upgrade{
+    width: 70%;
+    height:60%;
+    font-size:4vmin;
+    border: solid darkslategrey 1px;
+    border-radius: 15%;
+    background-color: peru;
+    transition: .3s ease;
+}
+.auto-upgrade:hover{
+    background-color: rgb(157, 102, 48);
+    cursor: pointer;
+}
+.auto-upgrade:active{
+    background-color: rgb(109, 71, 33);
+}
