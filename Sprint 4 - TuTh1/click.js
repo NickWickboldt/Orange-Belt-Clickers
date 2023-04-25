@@ -3,8 +3,9 @@ const bananaAmount = document.querySelector(".banana-amount");
 const tree = document.querySelector(".tree");
 const attackMonkeyBox = document.querySelector(".attack-monkeys");
 let monkeyArray = [];
+let clickAmount = 1;
 let monkeyHP = 5;
-let currentHP = 0;
+let autoClickerDuration = 1000;
 let upgradeCosts = {
     defense: 500,
     defenseMultiplier: 3,
@@ -15,10 +16,10 @@ let upgradeCosts = {
     weaponsMultiplier: 2
 }
 let currentWeaponIMG = 0;
-let bananas = 2000000;
+let bananas = 100000;
 
 tree.addEventListener("click",()=>{
-    bananas++;
+    bananas = bananas + clickAmount;
     bananaAmount.innerHTML = "Bananas: " + bananas;
 });
 createMonkey();
@@ -27,6 +28,7 @@ function createMonkey(){
     monkeyArray.push(monkey);
     monkey.classList.add("monkey");
     attackMonkeyBox.appendChild(monkey);
+    monkeyHealth(monkeyHP);
 }
 let timeoutID = attack();
 function attack(){
@@ -39,19 +41,22 @@ function attack(){
     });
 }
 
-monkeyArray.forEach(monkey => {
-    monkey.addEventListener("click",()=>{
-        currentHP++;
-        if(currentHP===monkeyHP){
-            currentHP = 0;
-            clearInterval(timeoutID);
-            monkey.style.transition = "0s";
-            monkey.style.top = "-10%";
-            timeoutID = attack();  
-        }
-        
+function monkeyHealth(health){
+    monkeyArray.forEach(monkey => {
+        let currentHP = 0;
+        monkey.addEventListener("click",()=>{
+            currentHP++;
+            if(currentHP===health){
+                currentHP = 0;
+                clearInterval(timeoutID);
+                monkey.style.transition = "0s";
+                monkey.style.top = "-10%";
+                timeoutID = attack();  
+            }
+            
+        });
     });
-});
+}
 
 const defenseButton = document.querySelector(".defense");
 const autoClickerButton = document.querySelector(".auto-clicker");
@@ -95,6 +100,7 @@ weaponButton.addEventListener("click",()=>{
         bananaAmount.innerHTML = "Bananas: " + bananas;
         weaponButton.innerHTML = upgradeCosts.weapons;
         currentWeaponIMG++;
+        createMonkey();
     }
 });
 
@@ -104,3 +110,34 @@ function updateWeaponIMG(){
     weaponIMG.classList.add("weapon-img");
     weaponButton.appendChild(weaponIMG);
 }
+
+autoClickerButton.addEventListener("click",()=>{
+    if(upgradeCosts.autoClicker === "PURCHASED"){
+        return;
+    }
+    else if(bananas> upgradeCosts.autoClicker){
+        bananas = bananas - upgradeCosts.autoClicker;
+        bananaAmount.innerHTML = "Bananas: " + bananas;
+        autoClickerButton.innerHTML = "PURCHASED";
+        upgradeCosts.autoClicker = "PURCHASED";
+        autoClicker();
+    }
+});
+
+function autoClicker(){
+    setInterval(() => {
+        bananas = bananas + clickAmount;
+        bananaAmount.innerHTML = "Bananas: " + bananas;
+    }, autoClickerDuration);
+}
+
+defenseButton.addEventListener("click",()=>{
+    if(bananas >= upgradeCosts.defense){
+        createMonkey();
+        bananas = bananas - upgradeCosts.defense;
+        upgradeCosts.defense = upgradeCosts.defense * upgradeCosts.defenseMultiplier;
+        bananaAmount.innerHTML = "Bananas: " + bananas;
+        defenseButton.innerHTML = upgradeCosts.defense;
+        clickAmount = clickAmount * upgradeCosts.defenseMultiplier;
+    }
+});
