@@ -1,3 +1,7 @@
+@font-face {
+    font-family: recipe;
+    src: url(./Jakarta\ stylish.otf);
+}
 *{
     margin:0;
     padding:0;
@@ -162,7 +166,7 @@ a{
     right:3vmin;
     top:3vmin;
     width:25%;
-    height:86%;
+    height:80%;
     border:solid darkslategrey 1px;
     background-color:grey;
     z-index: 1;
@@ -183,18 +187,25 @@ a{
 .storage-crop{
     padding:.2vmin;
 }
-.collect-crops{
-    font-size:3vmin;
-    width:100%;
-    height:5vmin;
-    background-color: aliceblue;
-    border-radius: 5%;
+.recipes{
+    position: absolute;
+    bottom:2vmin;
+    left:2vmin;
+    background-image: url("./images/wood-plank.jpeg");
+    height:10vmin;
+    width:25%;
+    background-size:cover;
+    border:none;
+    filter: brightness(60%);
     transition: .3s ease;
+    font-size: 7vmin;
+    border-radius: 5%;
+    font-family: recipe;
 }
-.collect-crops:hover{
-    background-color: lightgrey;
+.recipes:hover{
     cursor:pointer;
+    filter: brightness(100%);
 }
-.collect-crops:active{
-    background-color: darkgrey;
+.recipes:active{
+    filter: brightness(80%);
 }

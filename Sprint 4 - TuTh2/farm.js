@@ -35,6 +35,7 @@ function gameLoop(cropID){
         createCrop(plotList[plotNumber], cropID); // 0->cropID
         cropStorage[cropID]++;
         cropStorageLabels[cropID].innerHTML = cropStorage[cropID];
+        console.log(cropStorage);
     }, 5500));
     plotCounter++;
 }
@@ -93,13 +94,27 @@ soilArray.forEach(soil => {
     soilShop.appendChild(soilColor);
 });
 
+let kitchenSourcedCrops= [];
+window.addEventListener("load",()=>{
+    kitchenSourcedCrops = window.sessionStorage.getItem("crop_storage");
+    if(kitchenSourcedCrops === ''){
+        for(let i =0; i<9; i++){
+            cropStorageLabels[i].innerHTML = 0;
+        }
+    }else{
+        for(let i =0; i<18; i+=2){
+            cropStorage[i/2] = cropStorage[i/2] + Number(kitchenSourcedCrops[i]);
+            cropStorageLabels[i/2].innerHTML = kitchenSourcedCrops[i];
+        }
+    }
+    console.log(kitchenSourcedCrops);
+});
 const kitchenButton = document.querySelector(".index-link");
-
 kitchenButton.addEventListener("click",()=>{
     let cropSender = [];
     for(let i = 0; i<cropStorage.length; i++){
         cropSender.push(cropStorage[i]);
     }
-    window.localStorage.setItem("crop_storage",cropSender);
+    window.sessionStorage.setItem("crop_storage",cropSender);
     window.location.href = "./index.html";
 });

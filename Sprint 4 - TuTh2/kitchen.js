@@ -18,16 +18,30 @@ function resetClickerOnThreshold(){
         console.log("reset");
     }
 }
-
+let farmSourcedCrops= [];
 window.addEventListener("load",()=>{
-    let farmSourcedCrops= [];
-    farmSourcedCrops = window.localStorage.getItem("crop_storage");
+    farmSourcedCrops = window.sessionStorage.getItem("crop_storage");
     if(farmSourcedCrops === null){
-        return;
+        for(let i =0; i<9; i++){
+            cropStorageLabels[i].innerHTML = 0;
+        }
     }else{
         for(let i =0; i<18; i+=2){
             cropStorageLabels[i/2].innerHTML = farmSourcedCrops[i];
         }
     }
+    console.log(farmSourcedCrops);
 });
-localStorage.clear();
+const farmButton = document.querySelector(".farm-link");
+farmButton.addEventListener("click",()=>{
+    let cropSender = [];
+    if(farmSourcedCrops === null){
+        window.location.href = "./farm.html";
+    }else{
+        for(let i = 0; i<farmSourcedCrops.length; i+=2){
+            cropSender.push(farmSourcedCrops[i]);
+        }
+    }
+    window.sessionStorage.setItem("crop_storage",cropSender);
+    window.location.href = "./farm.html";
+});

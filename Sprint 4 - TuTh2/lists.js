@@ -88,15 +88,15 @@ export let recipes = {
 }
 
 export let cropStorage = [
-    -1, //stinkweed
-    -1, //blowflower
-    -1, //toxic shrooms
-    -1, //zucchini
-    -1, //purple stalk
-    -1, //quantum onions
-    -1, //tri stemmed carrots
-    -1, //green glob leaf
-    -1, //green tree
+    0, //stinkweed
+    0, //blowflower
+    0, //toxic shrooms
+    0, //zucchini
+    0, //purple stalk
+    0, //quantum onions
+    0, //tri stemmed carrots
+    0, //green glob leaf
+    0, //green tree
 ]
 
 const stinkweed = document.getElementById("stinkweed");
