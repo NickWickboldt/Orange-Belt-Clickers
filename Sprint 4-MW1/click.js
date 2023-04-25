@@ -1,11 +1,12 @@
-import {blockArray, pickaxeArray, dimensionList} from "./lists.js";
+import {blockArray, pickaxeArray, dimensionList,
+        fortuneList, efficiencyList, rarityList} from "./lists.js";
 
 const block = document.querySelector(".block");
 let blockAmountLabel = document.querySelector(".blocks");
 let pickaxe = document.querySelector(".pickaxe");
 const blockUpgradeButton = document.querySelector(".block-upgrade");
 
-let blockAmount = 1000000000000;
+let blockAmount = 0;
 let blockUpgradeCost = 20;
 let blockUpgradeCounter = 0;
 let multipliers = {
@@ -33,10 +34,11 @@ block.addEventListener("click", ()=>{
 blockUpgradeButton.innerHTML = "Block Upgrade: " + blockUpgradeCost;
 blockUpgradeButton.addEventListener("click",()=>{
     if(blockAmount>=blockUpgradeCost){
+        blockUpgradeCounter++;
         block.src = blockArray[blockUpgradeCounter];
         blockAmount = blockAmount - blockUpgradeCost;
         clickAmount++;
-        blockUpgradeCounter++;
+        
         if(blockUpgradeCounter % multipliers.blockUpgradeTriplet === 0){
             blockUpgradeCost*=10;
         }
@@ -53,10 +55,11 @@ let pickaxeUpgradeCost = 200;
 pickaxeUpgradeButton.innerHTML = "Pickaxe Upgrade: " + multipliers.pickaxeUpgradeValue;
 pickaxeUpgradeButton.addEventListener("click",()=>{
     if(blockAmount>=pickaxeUpgradeCost){
+        pickaxeUpgradeCounter++;
         pickaxe.src = pickaxeArray[pickaxeUpgradeCounter];
         blockAmount = blockAmount - pickaxeUpgradeCost; ///////
 
-        pickaxeUpgradeCounter++;
+        
         clickAmount*=multipliers.pickaxeUpgradeMultiplier;
         pickaxeUpgradeCost*=3;
         pickaxeUpgradeButton.innerHTML = "Pickaxe Upgrade: " + pickaxeUpgradeCost;
@@ -81,3 +84,45 @@ dimensionButton.addEventListener("click",()=>{
         "url(" + dimensionList[currentDimension] + ")";
     }
 });
+
+const enchantPopup = document.querySelector(".enchantment-popup");
+const enchantX = document.querySelector(".enchant-x");
+const enchantIMG = document.querySelector(".enchantments");
+
+enchantIMG.addEventListener("click",()=>{
+    enchantPopup.style.visibility = "visible";
+});
+enchantX.addEventListener("click",()=>{
+    enchantPopup.style.visibility = "hidden";
+});
+
+const fortuneLabel = document.getElementById("fortune-label");
+const efficiencyLabel = document.getElementById("efficiency-label");
+const rarityLabel = document.getElementById("rarity-label");
+
+const fortuneButton = document.querySelector(".fortune");
+const efficiencyButton = document.querySelector(".efficiency");
+const rarityButton = document.querySelector(".rarity");
+
+let enchantTracker = [0,0,0]; //[f,e,r]
+
+fortuneButton.addEventListener("mouseover",()=>{
+    fortuneLabel.innerHTML = fortuneList[enchantTracker[0]];
+});
+fortuneButton.addEventListener("mouseleave",()=>{
+    fortuneLabel.innerHTML = "Fortune";
+}); 
+
+efficiencyButton.addEventListener("mouseover",()=>{
+    efficiencyLabel.innerHTML = efficiencyList[enchantTracker[1]];
+});
+efficiencyButton.addEventListener("mouseleave",()=>{
+    efficiencyLabel.innerHTML = "Efficiency";
+}); 
+
+rarityButton.addEventListener("mouseover",()=>{
+    rarityLabel.innerHTML = rarityList[enchantTracker[2]];
+});
+rarityButton.addEventListener("mouseleave",()=>{
+    rarityLabel.innerHTML = "Rarity";
+}); 

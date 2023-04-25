@@ -114,3 +114,61 @@ body{
     width:12%;
     cursor: pointer;
 }
+.enchantment-popup{
+    visibility: hidden;
+    position: absolute;
+    width:80vmin;
+    height:60vmin;
+    top:20vmin;
+    left:50%; 
+    transform: translate(-50%);
+    border: solid 1px darkslategrey;
+    border-radius:5%;
+    background-color: grey;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.enchant-title{
+    font-family: sans-serif;
+    text-align: center;
+    margin: 1vmin;
+    position: absolute;
+    top:0;
+    left:50%;
+    transform: translate(-50%);
+}
+.fortune, .efficiency, .rarity{
+    width:30%;
+    height:40%;
+    background-color: dimgrey;
+    border-radius: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    transition: .3s ease;
+}
+.enchant-label{
+    font-size:3vmin;
+}
+.enchant-x{
+    position: absolute;
+    top:1vmin;
+    right:1vmin;
+    width:3vmin;
+    height: 3vmin;
+    font-weight: bold;
+    background-color: maroon;
+    border-radius: 15%;
+}
+.fortune-img, .efficiency-img, .rarity-img{
+    width:15vmin;
+    height:15vmin;
+    border:solid darkslateblue 1px;
+    border-radius: 15%;
+}
+.fortune:hover, .efficiency:hover, .rarity:hover{
+    background-color: rgb(85, 85, 85);
+    cursor: pointer;
+}
