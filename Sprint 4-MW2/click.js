@@ -1,14 +1,15 @@
+import { dimensions, dimensionPriceList } from "./lists.js";
 //Crystal clicking
 const crystal = document.querySelector(".crystal");
 const crystalLabel = document.querySelector(".crystals");
 const autoClickerButton = document.querySelector(".auto-clicker");
 
-let crystals = 5000;
+let crystals = 50000;
 let clickAmount = 1;
 crystalLabel.innerHTML = "Crystals: 0";
 
 crystal.addEventListener("click",()=>{
-    crystals++;
+    crystals = crystals + clickAmount;
     crystalLabel.innerHTML = "Crystals: "+ crystals;
 });
 //Shop pop-up
@@ -51,7 +52,7 @@ trader.style.visibility = "hidden";
 
 setInterval(() => {
     trader.style.visibility = "visible";
-    chance = Math.round(Math.random() * 100);
+    
     setTimeout(() => {
         trader.style.visibility = "hidden";
     }, 5000);
@@ -59,6 +60,7 @@ setInterval(() => {
 
 trader.addEventListener("click",()=>{
     if(trader.style.visibility === "visible"){
+        chance = Math.round(Math.random() * 100);
         if(chance===1){
             crystals = 0;
         }else if(chance<50){
@@ -66,6 +68,7 @@ trader.addEventListener("click",()=>{
         }else{
             crystals+=1;
         }
+        trader.style.visibility = "hidden";
     }
     crystalLabel.innerHTML = "Crystals: " + crystals;
 });
@@ -94,4 +97,49 @@ armorButton.addEventListener("mouseleave",()=>{
     armorButton.style.backgroundImage = "url(./armor.png)"; //add bg
     armorButton.style.backgroundColor = "burlywood"; //reset bg color
     armorButton.innerHTML = ""; //remove text
+});
+
+armorButton.addEventListener("click",()=>{
+    if(crystals>=armor.price){
+        crystals = crystals - armor.price;
+        armor.price = armor.price * armor.multiplier;
+        armorButton.innerHTML = armor.price;
+        crystalLabel.innerHTML = "Crystals: " + crystals;
+        clickAmount = clickAmount *2;
+    }
+});
+
+let enchantButton = document.querySelector(".enchantments");
+let enchant = {
+    price: 1000,
+    multiplier: 3
+}
+enchantButton.addEventListener("mouseover",()=>{
+    enchantButton.style.backgroundImage = "url()"; //remove bg
+    enchantButton.style.backgroundColor = "darkslategrey"; //bg color
+    enchantButton.style.color = "white"; //text color
+    enchantButton.innerHTML = enchant.price; //set text to price
+});
+enchantButton.addEventListener("mouseleave",()=>{
+    enchantButton.style.backgroundImage = "url(./enchantments.png)"; //add bg
+    enchantButton.style.backgroundColor = "burlywood"; //reset bg color
+    enchantButton.innerHTML = ""; //remove text
+});
+
+const multiverseTeleporter = document.querySelector(".teleporter");
+let currentDimension = 0;
+document.body.style.backgroundImage = 
+        "url(" + dimensions[currentDimension] + ")"; //start in space
+multiverseTeleporter.style.color = "white";
+multiverseTeleporter.innerHTML = dimensionPriceList[currentDimension];
+
+multiverseTeleporter.addEventListener("click",()=>{
+    if(crystals>dimensionPriceList[currentDimension]){
+        crystals = crystals - dimensionPriceList[currentDimension];
+        currentDimension++; //go to new dimension
+        crystalLabel.innerHTML = "Crystals: " + crystals; //update text
+        document.body.style.backgroundImage = 
+        "url(" + dimensions[currentDimension] + ")"; //set new background
+        multiverseTeleporter.innerHTML = dimensionPriceList[currentDimension];
+    }
 });
