@@ -45,3 +45,21 @@ farmButton.addEventListener("click",()=>{
     window.sessionStorage.setItem("crop_storage",cropSender);
     window.location.href = "./farm.html";
 });
+
+const recipePopup = document.querySelector(".recipe-popup");
+const recipeX = document.querySelector(".recipe-x");
+const recipeGrid = document.querySelector(".recipe-grid");
+const recipeButton = document.querySelector(".recipes");
+
+recipeButton.addEventListener("click",()=>{
+    recipePopup.style.visibility = "visible";
+});
+recipeX.addEventListener("click",()=>{
+    recipePopup.style.visibility = "hidden";
+});
+
+for (const recipe in recipes) {
+    const recipeIMG = document.createElement("img");
+    recipeIMG.alt = recipe;
+    recipeGrid.appendChild(recipeIMG);
+}

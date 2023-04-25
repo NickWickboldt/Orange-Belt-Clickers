@@ -131,7 +131,7 @@ a{
     display: flex;
     flex-wrap: wrap;
 }
-.x-out-crop-shop, .x-out-soil-shop{
+.x-out-crop-shop, .x-out-soil-shop, .recipe-x{
     position: absolute;
     right:0;
     top:0;
@@ -146,7 +146,7 @@ a{
     text-align: center;
     font-weight: bold;
 }
-.x-out-crop-shop:hover, .x-out-soil-shop:hover{
+.x-out-crop-shop:hover, .x-out-soil-shop:hover, .recipe-x:hover{
     cursor:pointer;
 }
 .shop-item{
@@ -208,4 +208,29 @@ a{
 }
 .recipes:active{
     filter: brightness(80%);
+}
+.recipe-popup{
+    visibility: hidden;
+    position: absolute;
+    top:5%;
+    left:30%;
+    width:70vmin;
+    height:50vmin;
+    background-color: saddlebrown;
+    border:solid darkslategrey 1px;
+    border-radius: 5%;
+}
+.recipe-title{
+    text-align: center;
+    font-family: recipe;
+    font-size:5vmin;
+}
+.recipe-grid{
+    position: absolute;
+    top:15%;
+    left:0;
+    width:100%;
+    height:85%;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
 }

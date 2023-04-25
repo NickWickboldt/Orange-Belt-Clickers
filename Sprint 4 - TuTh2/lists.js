@@ -120,3 +120,7 @@ export let cropStorageLabels = [    //list of <li> tags displaying amount of cro
     greenGlobLeaf,
     greenTree
 ];
+
+export let recipeImageList = [
+
+];
