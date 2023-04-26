@@ -33,6 +33,7 @@
 .crystals{
     border:none;
     font-size:40px;
+    color: cyan;
 }
 .crystal:hover{
     max-height:23vh;
