@@ -3,7 +3,7 @@ export let dimensions = [
     "./multiverse-images/pancake.jpg",
     "./multiverse-images/fortnite.png",
     "./multiverse-images/minecraft.jpeg",
-    "./multiverse-images/snake.webp",
+    "./multiverse-images/snake.jpg",
     "./multiverse-images/demon-realm.jpeg",
     "./multiverse-images/earth.webp"
 ];

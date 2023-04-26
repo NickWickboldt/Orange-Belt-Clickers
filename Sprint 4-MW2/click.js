@@ -3,8 +3,9 @@ import { dimensions, dimensionPriceList } from "./lists.js";
 const crystal = document.querySelector(".crystal");
 const crystalLabel = document.querySelector(".crystals");
 const autoClickerButton = document.querySelector(".auto-clicker");
+let spaceshipOriginal = document.querySelector(".spaceship");
 
-let crystals = 50000;
+let crystals = 500000000000000;
 let clickAmount = 1;
 crystalLabel.innerHTML = "Crystals: 0";
 
@@ -105,7 +106,7 @@ armorButton.addEventListener("click",()=>{
         armor.price = armor.price * armor.multiplier;
         armorButton.innerHTML = armor.price;
         crystalLabel.innerHTML = "Crystals: " + crystals;
-        clickAmount = clickAmount *2;
+        clickAmount = clickAmount * 2;
     }
 });
 
@@ -141,5 +142,36 @@ multiverseTeleporter.addEventListener("click",()=>{
         document.body.style.backgroundImage = 
         "url(" + dimensions[currentDimension] + ")"; //set new background
         multiverseTeleporter.innerHTML = dimensionPriceList[currentDimension];
+        spaceshipOriginal =  spaceshipAbsorb(spaceshipOriginal);
     }
 });
+
+enchantButton.addEventListener("click",()=>{
+    if(crystals>=enchant.price){
+        crystals = crystals - enchant.price;
+        enchant.price = enchant.price * enchant.multiplier;
+        enchantButton.innerHTML = enchant.price;
+        crystalLabel.innerHTML = "Crystals: " + crystals;
+        autoClickInterval = autoClickInterval * .9;
+        clearInterval(autoClickID);
+        autoClickID = autoClickerStart();
+    }
+});
+
+const spaceshipBox = document.querySelector(".spaceship-box");
+function spaceshipAbsorb(spaceship){
+    spaceship.classList.remove("spaceship");
+    spaceship.classList.add("spaceship-transform");
+    setTimeout(() => {
+    spaceship.style.transform = "translateY(25vmin) scale(5%)";    
+    }, 10);
+    const ship = document.createElement("img");
+    ship.src = "./spaceship.png";
+    ship.classList.add("spaceship");
+    setTimeout(() => {
+        spaceship.remove();
+        spaceshipBox.appendChild(ship);
+        
+    }, 500);
+    return ship;
+}

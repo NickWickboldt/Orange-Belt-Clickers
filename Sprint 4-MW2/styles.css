@@ -126,3 +126,8 @@
 body{
     background-size: cover;
 }
+.spaceship-transform{
+    border:none;
+    animation: none;
+    transition: .5s ease;
+}
