@@ -3,8 +3,8 @@ const bananaAmount = document.querySelector(".banana-amount");
 const tree = document.querySelector(".tree");
 const attackMonkeyBox = document.querySelector(".attack-monkeys");
 let monkeyArray = [];
-let clickAmount = 1;
-let monkeyHP = 5;
+export let clickAmount = 1;
+export let monkeyHP = 5;
 let autoClickerDuration = 1000;
 let upgradeCosts = {
     defense: 500,
@@ -15,7 +15,7 @@ let upgradeCosts = {
     weapons: 200,
     weaponsMultiplier: 2
 }
-let currentWeaponIMG = 0;
+export let currentWeaponIMG = 0;
 let bananas = 100000;
 
 tree.addEventListener("click",()=>{
@@ -107,7 +107,6 @@ weaponButton.addEventListener("click",()=>{
 function updateWeaponIMG(){
     const weaponIMG = document.createElement("img");
     weaponIMG.src = weaponList[currentWeaponIMG];
-    weaponIMG.classList.add("weapon-img");
     weaponButton.appendChild(weaponIMG);
 }
 

@@ -125,3 +125,11 @@ body{
     background-color: darkslategrey;
     cursor: pointer;
 }
+.inventory-title, .hp-label, .weapon-label, .damage, .bpc, .bps{
+    text-align: center;
+    font-size:4vmin;
+    margin:1vmin;
+}
+.weapon-img{
+    width:5vmin;
+}
