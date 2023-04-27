@@ -19,6 +19,7 @@ function resetClickerOnThreshold(){
     }
 }
 let farmSourcedCrops= [];
+let tempA = [];
 window.addEventListener("load",()=>{
     farmSourcedCrops = window.sessionStorage.getItem("crop_storage");
     if(farmSourcedCrops === null){
@@ -26,8 +27,18 @@ window.addEventListener("load",()=>{
             cropStorageLabels[i].innerHTML = 0;
         }
     }else{
-        for(let i =0; i<18; i+=2){
-            cropStorageLabels[i/2].innerHTML = farmSourcedCrops[i];
+        
+        let tempS = '';
+        for(let i = 0; i<farmSourcedCrops.length; i++){
+            if(farmSourcedCrops[i] === ','){
+                tempA.push(parseInt(tempS));
+                tempS = '';
+            }else{
+                tempS += farmSourcedCrops[i];
+            }
+        }tempA.push(parseInt(tempS));
+        for(let i = 0; i<tempA.length; i++){
+            cropStorageLabels[i].innerHTML = tempA[i];
         }
     }
     console.log(farmSourcedCrops);
@@ -38,8 +49,8 @@ farmButton.addEventListener("click",()=>{
     if(farmSourcedCrops === null){
         window.location.href = "./farm.html";
     }else{
-        for(let i = 0; i<farmSourcedCrops.length; i+=2){
-            cropSender.push(farmSourcedCrops[i]);
+        for(let i = 0; i<tempA.length; i++){
+            cropSender.push(tempA[i]);
         }
     }
     window.sessionStorage.setItem("crop_storage",cropSender);

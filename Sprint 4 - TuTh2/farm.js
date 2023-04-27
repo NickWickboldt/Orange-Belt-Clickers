@@ -95,6 +95,7 @@ soilArray.forEach(soil => {
 });
 
 let kitchenSourcedCrops= [];
+let tempA = [];
 window.addEventListener("load",()=>{
     kitchenSourcedCrops = window.sessionStorage.getItem("crop_storage");
     if(kitchenSourcedCrops === ''){
@@ -102,9 +103,19 @@ window.addEventListener("load",()=>{
             cropStorageLabels[i].innerHTML = 0;
         }
     }else{
-        for(let i =0; i<18; i+=2){
-            cropStorage[i/2] = cropStorage[i/2] + Number(kitchenSourcedCrops[i]);
-            cropStorageLabels[i/2].innerHTML = kitchenSourcedCrops[i];
+        
+        let tempS = '';
+        for(let i = 0; i<kitchenSourcedCrops.length; i++){
+            if(kitchenSourcedCrops[i] === ','){
+                tempA.push(parseInt(tempS));
+                tempS = '';
+            }else{
+                tempS += kitchenSourcedCrops[i];
+            }
+        }tempA.push(parseInt(tempS));
+        for(let i = 0; i<tempA.length; i++){
+            cropStorage[i] = cropStorage[i] + tempA[i];
+            cropStorageLabels[i].innerHTML = tempA[i];
         }
     }
     console.log(kitchenSourcedCrops);
