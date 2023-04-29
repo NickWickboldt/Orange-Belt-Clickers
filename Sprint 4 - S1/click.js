@@ -82,3 +82,12 @@ function displayPrice(text,price){
 function removeDisplayPrice(item){
     tree2.removeChild(item);
 }
+
+const grid3 = document.querySelector(".grid-3");
+function setSnackImage(snackIdentifier){
+    const snackIMG = document.createElement("img");
+    snackIMG.src = snackList[snackIdentifier];
+    snackIMG.classList.add("snack-img");
+    grid3.appendChild(snackIMG);
+}
+setSnackImage(3);
