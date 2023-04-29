@@ -83,6 +83,9 @@
     background-color: bisque;
     visibility: hidden;
     z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .totem-x, .upgrades-x, .shop-x{
     background-color: crimson;
@@ -132,4 +135,35 @@
 }
 .auto-upgrade:active{
     background-color: rgb(109, 71, 33);
+}
+.powerup-box{
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    border:none;
+}
+.shop-display{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    margin:1vmin;
+    width: 90%;
+    height: 90%;
+}
+.shop-left, .shop-right, .shop-middle{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border:solid darkslategrey 1px;
+}
+.shop-img{
+    width: 80%;
+    height:50%;
+    border:solid darkslategrey 1px;
+}
+.shop-button{
+    width:90%;
+    height:20%;
+    border:solid darkslategrey 1px;
+    background-color: silver;
+    font-size:2vmin;
 }
