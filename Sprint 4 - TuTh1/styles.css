@@ -1,4 +1,10 @@
+@font-face {
+    font-family: futureN;
+    src: url(./fonts/futureN.otf);
+}
+
 *{
+    font-family: futureN;
     margin:0;
     padding:0;
 }
@@ -30,6 +36,7 @@
     font-size: 30px;
     padding:30px;
     height:100px;
+    color:white;
 }
 .shop{
     width:100%;
@@ -83,6 +90,7 @@ body{
     visibility: hidden;
 }
 .x-out1, .x-out2{
+    z-index: 1000;
     background-color: red;
     width:30px;
     height:30px;
@@ -132,4 +140,15 @@ body{
 }
 .weapon-img{
     width:5vmin;
+}
+.shop-title{
+    text-align: center;
+    margin-top:4vmin;
+    font-size:6vmin;
+    color:rgb(118, 117, 117);
+}
+.inventory-title{
+    margin-top:-3vmin;
+    font-size:8vmin;
+    color:rgb(118, 117, 117);
 }

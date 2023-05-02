@@ -3,9 +3,10 @@ const bananaAmount = document.querySelector(".banana-amount");
 const tree = document.querySelector(".tree");
 const attackMonkeyBox = document.querySelector(".attack-monkeys");
 let monkeyArray = [];
+export let damageAmount = 1;
 export let clickAmount = 1;
-export let monkeyHP = 5;
-let autoClickerDuration = 1000;
+export let monkeyHP = 23;
+export let autoClickerDuration = 1000;
 let upgradeCosts = {
     defense: 500,
     defenseMultiplier: 3,
@@ -45,8 +46,8 @@ function monkeyHealth(health){
     monkeyArray.forEach(monkey => {
         let currentHP = 0;
         monkey.addEventListener("click",()=>{
-            currentHP++;
-            if(currentHP===health){
+            currentHP= currentHP + damageAmount;
+            if(currentHP>=health){
                 currentHP = 0;
                 clearInterval(timeoutID);
                 monkey.style.transition = "0s";
@@ -100,6 +101,7 @@ weaponButton.addEventListener("click",()=>{
         bananaAmount.innerHTML = "Bananas: " + bananas;
         weaponButton.innerHTML = upgradeCosts.weapons;
         currentWeaponIMG++;
+        damageAmount+=2;
         createMonkey();
     }
 });
@@ -122,9 +124,9 @@ autoClickerButton.addEventListener("click",()=>{
         autoClicker();
     }
 });
-
+let autoClickerID;
 function autoClicker(){
-    setInterval(() => {
+    autoClickerID = setInterval(() => {
         bananas = bananas + clickAmount;
         bananaAmount.innerHTML = "Bananas: " + bananas;
     }, autoClickerDuration);
@@ -138,5 +140,19 @@ defenseButton.addEventListener("click",()=>{
         bananaAmount.innerHTML = "Bananas: " + bananas;
         defenseButton.innerHTML = upgradeCosts.defense;
         clickAmount = clickAmount * upgradeCosts.defenseMultiplier;
+        monkeyHP++;
+    }
+});
+
+speedButton.addEventListener("click",()=>{
+    if(bananas >= upgradeCosts.speed){
+        createMonkey();
+        bananas = bananas - upgradeCosts.speed;
+        upgradeCosts.speed = upgradeCosts.speed * upgradeCosts.speedMultiplier;
+        bananaAmount.innerHTML = "Bananas: " + bananas;
+        speedButton.innerHTML = upgradeCosts.speed;
+        clearInterval(autoClickerID);
+        autoClickerDuration = Math.round(autoClickerDuration * .9);
+        autoClicker();
     }
 });
