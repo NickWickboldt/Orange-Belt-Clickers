@@ -1,12 +1,13 @@
 import {blockArray, pickaxeArray, dimensionList,
-        fortuneList, efficiencyList, rarityList} from "./lists.js";
+        fortuneList, efficiencyList, rarityList,
+        blacksmithList, farmerList, librarianList} from "./lists.js";
 
 const block = document.querySelector(".block");
 let blockAmountLabel = document.querySelector(".blocks");
 let pickaxe = document.querySelector(".pickaxe");
 const blockUpgradeButton = document.querySelector(".block-upgrade");
 
-let blockAmount = 0;
+let blockAmount = 999999999990;
 let blockUpgradeCost = 20;
 let blockUpgradeCounter = 0;
 let multipliers = {
@@ -23,7 +24,11 @@ block.addEventListener("click", ()=>{
     if(clickAmount===0){
         blockAmount++;
     }else{
-        blockAmount = blockAmount + clickAmount;
+        let enchantAccess = enchantValuesOnClick();
+        blockAmount += (
+            clickAmount + (clickAmount * enchantAccess[1])
+            + enchantAccess[0]
+        );
     }
     blockAmountLabel.innerHTML = "Blocks: " + blockAmount;
     pickaxe.style.transform = "rotateZ(60deg)";
@@ -126,3 +131,94 @@ rarityButton.addEventListener("mouseover",()=>{
 rarityButton.addEventListener("mouseleave",()=>{
     rarityLabel.innerHTML = "Rarity";
 }); 
+
+fortuneButton.addEventListener("click",()=>{
+    if(blockAmount>fortuneList[enchantTracker[0]]){
+        if(enchantTracker[0]===3){
+            fortuneLabel.innerHTML = fortuneList[enchantTracker[0]];
+            return;
+        }
+        blockAmount = blockAmount - fortuneList[enchantTracker[0]];
+        blockAmountLabel.innerHTML = "Blocks: " + blockAmount;
+        enchantTracker[0]++;
+        fortuneLabel.innerHTML = fortuneList[enchantTracker[0]];
+    }
+});
+
+efficiencyButton.addEventListener("click",()=>{
+    if(blockAmount>efficiencyList[enchantTracker[1]]){
+        if(enchantTracker[1]===5){
+            efficiencyLabel.innerHTML = efficiencyList[enchantTracker[1]];
+            return;
+        }
+        blockAmount = blockAmount - efficiencyList[enchantTracker[1]];
+        blockAmountLabel.innerHTML = "Blocks: " + blockAmount;
+        enchantTracker[1]++;
+        efficiencyLabel.innerHTML = efficiencyList[enchantTracker[1]];
+    }
+});
+
+rarityButton.addEventListener("click",()=>{
+    if(blockAmount>rarityList[enchantTracker[2]]){
+        if(enchantTracker[2]===3){
+            rarityLabel.innerHTML = rarityList[enchantTracker[2]];
+            return;
+        }
+        blockAmount = blockAmount - rarityList[enchantTracker[2]];
+        blockAmountLabel.innerHTML = "Blocks: " + blockAmount;
+        enchantTracker[2]++;
+        rarityLabel.innerHTML = rarityList[enchantTracker[2]];
+    }
+});
+
+function enchantValuesOnClick(){
+    let fortune = Math.ceil(Math.random() * (enchantTracker[0]) * 10);
+    let rarity = Math.ceil(Math.random() * (enchantTracker[2]) * 3);
+    let tempArray;
+    return (
+        tempArray = [fortune,rarity]
+    )
+}
+
+const blacksmith = { 
+    object: document.querySelector(".villager1"),
+    id: 0,
+    name: "Blacksmith",
+    level: 0,
+    cost: 0
+}
+const farmer = {
+    object: document.querySelector(".villager2"),
+    id: 1,
+    name: "Farmer",
+    level: 0,
+    cost: 0
+}
+const librarian = {
+    object: document.querySelector(".villager3"),
+    id: 2,
+    name: "Librarian",
+    level: 0,
+    cost: 0
+}
+blacksmith.cost = blacksmithList[blacksmith.level];
+farmer.cost = farmerList[farmer.level];
+librarian.cost = librarianList[librarian.level];
+
+let villagerArray = [blacksmith,farmer,librarian];
+let villagerLevelList = [blacksmithList,farmerList,librarianList];
+
+villagerArray.forEach(villager => {
+    const textBox = document.createElement("p");
+    textBox.innerHTML = `${villager.name} upgrade: ${villager.cost}`;
+    textBox.classList.add("popup-textbox");
+    villager.object.addEventListener("mouseover",(e)=>{
+        console.log(e.pageX + " " + e.pageY);
+        textBox.style.top = e.pageY - 40 + 'px';
+        textBox.style.left = e.pageX + 40 + 'px';
+        document.body.appendChild(textBox);
+    });
+    villager.object.addEventListener("mouseleave",()=>{
+        document.body.removeChild(textBox);
+    });
+});

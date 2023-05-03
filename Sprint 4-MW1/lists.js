@@ -53,17 +53,45 @@ export let dimensionList = [
 export let fortuneList = [
     10000,
     25000,
-    100000
+    100000,
+    "Max Level"
 ];
 export let efficiencyList = [
     5000,
     20000,
     100000,
     5000000,
-    1000000000
+    1000000000,
+    "Max Level"
 ];
 export let rarityList = [
     10000,
     1000000,
-    500000000
+    500000000,
+    "Max Level"
+];
+
+export let farmerList = [
+    500, //I
+    5000, //II
+    12500, //III
+    30000, //IV
+    100000, //V
+    "Max Level"
+];
+export let blacksmithList = [
+    2500, //I
+    10000, //II
+    65000, //III
+    112000, //IV
+    565000, //V
+    "Max Level"
+];
+export let librarianList = [
+    15000, //I
+    85000, //II
+    735000, //III
+    2650000, //IV - 2.65 mil
+    75000000, //V - 75 mil
+    "Max Level"
 ];
