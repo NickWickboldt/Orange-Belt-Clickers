@@ -112,7 +112,7 @@ armorButton.addEventListener("click",()=>{
 
 let enchantButton = document.querySelector(".enchantments");
 let enchant = {
-    price: 1000,
+    price: 10000,
     multiplier: 3
 }
 enchantButton.addEventListener("mouseover",()=>{
@@ -174,4 +174,24 @@ function spaceshipAbsorb(spaceship){
         
     }, 500);
     return ship;
+}
+//inventory pop-up
+const inventory = document.querySelector(".inventory");
+const inventoryPopup = document.querySelector(".i-popup");
+const iXOut = document.querySelector(".x-i-out");
+//open inventory hop
+inventory.addEventListener("click",()=>{
+    inventoryPopup.style.visibility = "visible";
+});
+//close inventory
+iXOut.addEventListener("click",()=>{
+    inventoryPopup.style.visibility = "hidden"; 
+});
+
+const CPS = document.querySelector(".cps");
+const armorILabel = document.querySelector(".armor-label");
+function updateInventory() { //updates inventory text
+    let clicksPerSecond = (autoClickInterval/1000) * clickAmount;
+    CPS.innerHTML = `CPS: ${clicksPerSecond}`;
+    armorILabel.innerHTML = `Armor Level: ${armorLevel}`;
 }
