@@ -1,4 +1,4 @@
-import { cropStorageLabels,recipes } from "./lists.js";
+import { cropStorageLabels,recipes,recipeStorageLabels,recipeStorage } from "./lists.js";
 const stove = document.querySelector(".stove");
 
 let threshold = {
@@ -22,7 +22,7 @@ let farmSourcedCrops= [];
 let tempA = [];
 window.addEventListener("load",()=>{
     farmSourcedCrops = window.sessionStorage.getItem("crop_storage");
-    if(farmSourcedCrops === null){
+    if(farmSourcedCrops === ''){
         for(let i =0; i<9; i++){
             cropStorageLabels[i].innerHTML = 0;
         }
@@ -74,3 +74,48 @@ for (const recipe in recipes) {
     recipeIMG.alt = recipe;
     recipeGrid.appendChild(recipeIMG);
 }
+
+function intoRecipeStorage(id){ //recipe - id
+    recipeStorage[id]++; //increases recipe in recipe storage numerically
+    recipeStorageLabels[id].innerHTML = recipeStorage[id]; //updates text on storage
+}
+
+let battlefieldSourcedRecipes= [];
+let tempB = [];
+window.addEventListener("load",()=>{
+    battlefieldSourcedRecipes = window.sessionStorage.getItem("recipe_storage");
+    console.log(battlefieldSourcedRecipes);
+    if(battlefieldSourcedRecipes === ''){
+        for(let i =0; i<8; i++){
+            recipeStorageLabels[i].innerHTML = 0;
+        }
+    }else{
+        
+        let tempS = '';
+        for(let i = 0; i<battlefieldSourcedRecipes.length; i++){
+            if(battlefieldSourcedRecipes[i] === ','){
+                tempB.push(parseInt(tempS));
+                tempS = '';
+            }else{
+                tempS += battlefieldSourcedRecipes[i];
+            }
+        }tempB.push(parseInt(tempS));
+        for(let i = 0; i<tempB.length; i++){
+            recipeStorageLabels[i].innerHTML = tempB[i];
+        }
+    }
+});
+
+const battlefieldButton = document.querySelector(".battlefield-link");
+battlefieldButton.addEventListener("click",()=>{
+    let recipeSender = [];
+    if(battlefieldSourcedRecipes === null){ //if no recipes yet
+        window.location.href = "./battlefield.html";
+    }else{ //if recipes, fill recipeSender
+        for(let i = 0; i<tempB.length; i++){
+            recipeSender.push(tempB[i]);
+        }
+    }
+    window.sessionStorage.setItem("recipe_storage",recipeSender); //send sender
+    window.location.href = "./battlefield.html";
+});

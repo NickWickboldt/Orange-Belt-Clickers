@@ -131,7 +131,7 @@ const toxicPizza = document.getElementById("toxicPizza");
 const quantumBurrito = document.getElementById("quantumBurrito");
 const quantumStew = document.getElementById("quantumStew");
 const zucchiniRamen = document.getElementById("zucchiniRamen");
-const greenTreeSmoothie = document.getElementById("greenTreeSmoothie");
+const greenTreeSmoothie = document.getElementById("greentreeSmoothie");
 const superSalad = document.getElementById("superSalad");
 
 export let recipeStorageLabels = [
@@ -143,4 +143,15 @@ export let recipeStorageLabels = [
     zucchiniRamen,
     greenTreeSmoothie,
     superSalad,
+]
+
+export let recipeStorage = [
+    0, //stinkweed Stew
+    0, //blowflower Bread
+    0, //toxic pizza
+    0, //quantum Burrito
+    0, //quantum Stew
+    0, //zucchini ramen
+    0, //green tree smoothie
+    0, //super salad
 ]

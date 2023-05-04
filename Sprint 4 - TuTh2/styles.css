@@ -161,7 +161,7 @@ a{
     align-items: flex-end;
     padding:2vmin;
 }
-.crop-storage{
+.crop-storage, .recipe-storage{
     position: absolute;
     right:3vmin;
     top:3vmin;
@@ -172,19 +172,19 @@ a{
     z-index: 1;
     border-radius: 5%;
 }
-.crop-storage-label{
+.crop-storage-label, .recipe-storage-label{
     text-align: center;
     font-size:4vmin;
     padding:1vmin;
     border-bottom: solid darkslategrey 1px;
 }
-.crop-storage-crops{
+.crop-storage-crops, .recipe-storage-crops{
     font-size:3vmin;
     list-style-type: none;
     text-align: center;
     padding:2vmin;
 }
-.storage-crop{
+.storage-crop, .recipe-label{
     padding:.2vmin;
 }
 .recipes{
@@ -260,4 +260,7 @@ a{
     top:45vmin;
     width:60%;
     height:20vmin;
+}
+#home-button{
+    align-self: flex-end;
 }
