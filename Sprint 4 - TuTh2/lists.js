@@ -124,3 +124,23 @@ export let cropStorageLabels = [    //list of <li> tags displaying amount of cro
 export let recipeImageList = [
 
 ];
+
+const stinkWeedStew = document.getElementById("stinkweedStew");
+const blowFlowerBread = document.getElementById("blowflowerBread");
+const toxicPizza = document.getElementById("toxicPizza");
+const quantumBurrito = document.getElementById("quantumBurrito");
+const quantumStew = document.getElementById("quantumStew");
+const zucchiniRamen = document.getElementById("zucchiniRamen");
+const greenTreeSmoothie = document.getElementById("greenTreeSmoothie");
+const superSalad = document.getElementById("superSalad");
+
+export let recipeStorageLabels = [
+    stinkWeedStew,
+    blowFlowerBread,
+    toxicPizza,
+    quantumBurrito,
+    quantumStew,
+    zucchiniRamen,
+    greenTreeSmoothie,
+    superSalad,
+]
