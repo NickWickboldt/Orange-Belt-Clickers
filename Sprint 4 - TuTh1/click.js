@@ -3,6 +3,7 @@ const bananaAmount = document.querySelector(".banana-amount");
 const tree = document.querySelector(".tree");
 const attackMonkeyBox = document.querySelector(".attack-monkeys");
 let monkeyArray = [];
+let attackingMonkeyArray = [];
 export let damageAmount = 1;
 export let clickAmount = 1;
 export let monkeyHP = 23;
@@ -38,9 +39,23 @@ function attack(){
         return id = setTimeout(() => {
             monkey.style.transition = "10s ease";
             monkey.style.top = "60%";
+            setTimeout(() => {
+                if(monkey.style.top = "60%"){
+                    attackingMonkeyArray.push(stealBananas());
+                }
+            }, 10000);
         }, 10000);
     });
 }
+function stealBananas(){
+    return (
+        setInterval(() => {
+            bananas--;
+            bananaAmount.innerHTML = "Bananas: " + bananas;
+        }, 100)
+    );
+}
+
 
 function monkeyHealth(health){
     monkeyArray.forEach(monkey => {
@@ -48,13 +63,15 @@ function monkeyHealth(health){
         monkey.addEventListener("click",()=>{
             currentHP= currentHP + damageAmount;
             if(currentHP>=health){
+                clearInterval(attackingMonkeyArray.pop());
+                bananas+=25;
+                bananaAmount.innerHTML = "Bananas: " + bananas;
                 currentHP = 0;
                 clearInterval(timeoutID);
                 monkey.style.transition = "0s";
                 monkey.style.top = "-10%";
                 timeoutID = attack();  
             }
-            
         });
     });
 }
