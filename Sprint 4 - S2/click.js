@@ -4,7 +4,8 @@ const berryLabel = document.querySelector(".berries");
 const autoClickerButton = document.querySelector(".auto-upgrade");
 const powerUpBox = document.querySelector(".powerup-box");
 
-let strawberries = 0;
+let strawberries = 1000;
+let clickAmount = 1;
 
 export let powerUps = {
     x2: false,
@@ -20,7 +21,7 @@ export let powerUps = {
 };
 
 nick.addEventListener("click",()=>{
-    strawberries = strawberries + 1;
+    strawberries = strawberries + clickFunction(clickAmount);
     berryLabel.innerHTML = "Strawberries: " + strawberries;
 });
 
@@ -55,4 +56,54 @@ export function displayPowerUp(powerup, duration){
     setTimeout(() => {
         powerUpBox.removeChild(powerupIMG);
     }, duration);
+}
+
+const buyTotem = document.getElementById("buy-totem");
+const buyNick = document.getElementById("buy-nick");
+const buySpeed = document.getElementById("buy-speed");
+
+let upgradePrices = {
+    totem: 10000,
+    totemM: 2,
+    nick: 1000,
+    nickM: 3,
+    speed: 20000,
+    speedM: 4,
+}
+
+buyTotem.addEventListener("click",()=>{
+    if(strawberries>=upgradePrices.totem){
+        strawberries = strawberries - upgradePrices.totem;
+        berryLabel.innerHTML = "Strawberries: " + strawberries;
+        upgradePrices.totem = upgradePrices.totem * upgradePrices.totemM;
+        clickAmount = clickAmount * upgradePrices.totemM;
+    }
+});
+
+buyNick.addEventListener("click",()=>{
+    if(strawberries>=upgradePrices.nick){
+        strawberries = strawberries - upgradePrices.nick;
+        berryLabel.innerHTML = "Strawberries: " + strawberries;
+        upgradePrices.nick = upgradePrices.nick * upgradePrices.nickM;
+        clickAmount = clickAmount * upgradePrices.nickM;
+    }
+});
+
+buySpeed.addEventListener("click",()=>{
+    if(strawberries>=upgradePrices.speed){
+        strawberries = strawberries - upgradePrices.speed;
+        berryLabel.innerHTML = "Strawberries: " + strawberries;
+        upgradePrices.speed = upgradePrices.speed * upgradePrices.speedM;
+        clickAmount = clickAmount * upgradePrices.speedM;
+    }
+});
+
+function clickFunction(amount){
+    if(powerUps.x2===true){
+        amount *= 2;
+    }
+    if(powerUps.x4===true){
+        amount *= 4;
+    }
+    return amount;
 }
