@@ -11,3 +11,11 @@ export let snackList = [
     "./images/cupcakes.png",
     "./images/birthday-cake.png"
 ];
+
+export let decorationList = [
+    "./images/streamers.png",
+    "./images/goodiebags.png",
+    "./images/discoball.png",
+    "./images/partyhats.png",
+    "./images/glowbeachball.png",
+];
