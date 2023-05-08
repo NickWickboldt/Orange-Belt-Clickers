@@ -8,6 +8,10 @@ let spaceshipOriginal = document.querySelector(".spaceship");
 let crystals = 500000000000000;
 let clickAmount = 1;
 crystalLabel.innerHTML = "Crystals: 0";
+let armorLevel = 0;
+const CPS = document.querySelector(".cps");
+const armorILabel = document.querySelector(".armor-label");
+const textBox = document.createElement("p");
 
 crystal.addEventListener("click",()=>{
     crystals = crystals + clickAmount;
@@ -107,6 +111,7 @@ armorButton.addEventListener("click",()=>{
         armorButton.innerHTML = armor.price;
         crystalLabel.innerHTML = "Crystals: " + crystals;
         clickAmount = clickAmount * 2;
+        armorLevel++;
     }
 });
 
@@ -143,6 +148,7 @@ multiverseTeleporter.addEventListener("click",()=>{
         "url(" + dimensions[currentDimension] + ")"; //set new background
         multiverseTeleporter.innerHTML = dimensionPriceList[currentDimension];
         spaceshipOriginal =  spaceshipAbsorb(spaceshipOriginal);
+        textBox.innerHTML = "Teleport: " + dimensionPriceList[currentDimension];
     }
 });
 
@@ -182,16 +188,34 @@ const iXOut = document.querySelector(".x-i-out");
 //open inventory hop
 inventory.addEventListener("click",()=>{
     inventoryPopup.style.visibility = "visible";
+    updateInventory();
 });
 //close inventory
 iXOut.addEventListener("click",()=>{
     inventoryPopup.style.visibility = "hidden"; 
 });
 
-const CPS = document.querySelector(".cps");
-const armorILabel = document.querySelector(".armor-label");
+
 function updateInventory() { //updates inventory text
-    let clicksPerSecond = (autoClickInterval/1000) * clickAmount;
+    let clicksPerSecond;
+    if(clickAmount===1){
+        clicksPerSecond = 0;
+    }else{
+        clicksPerSecond = (autoClickInterval/1000) * clickAmount;
+    }
     CPS.innerHTML = `CPS: ${clicksPerSecond}`;
     armorILabel.innerHTML = `Armor Level: ${armorLevel}`;
 }
+
+
+multiverseTeleporter.addEventListener("mouseover",(e)=>{
+    textBox.innerHTML = "Teleport: " + dimensionPriceList[currentDimension];
+    textBox.classList.add("textbox");
+    textBox.style.top = e.pageY - 40 + 'px';
+    textBox.style.left = e.pageX + 40 + 'px';
+    document.body.appendChild(textBox);
+});
+
+multiverseTeleporter.addEventListener("mouseleave",()=>{
+    document.body.removeChild(textBox);
+});

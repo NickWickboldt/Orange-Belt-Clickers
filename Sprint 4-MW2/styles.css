@@ -155,3 +155,11 @@ body{
     padding:3vmin;
     border:none;
 }
+.textbox{
+    position: absolute;
+    top:0;
+    left:0;
+    background-color: aliceblue;
+    color:black;
+    border: solid black 1px;
+}
