@@ -2,6 +2,8 @@ import { weaponList } from "./lists.js";
 const bananaAmount = document.querySelector(".banana-amount");
 const tree = document.querySelector(".tree");
 const attackMonkeyBox = document.querySelector(".attack-monkeys");
+const gameoverScreen  = document.querySelector(".gameover");
+const gameoverButton = document.querySelector(".play-again");
 let monkeyArray = [];
 let attackingMonkeyArray = [];
 export let damageAmount = 1;
@@ -18,7 +20,7 @@ let upgradeCosts = {
     weaponsMultiplier: 2
 }
 export let currentWeaponIMG = 0;
-let bananas = 100000;
+let bananas = 1;
 
 tree.addEventListener("click",()=>{
     bananas = bananas + clickAmount;
@@ -52,10 +54,15 @@ function stealBananas(){
         setInterval(() => {
             bananas--;
             bananaAmount.innerHTML = "Bananas: " + bananas;
-        }, 100)
+            if(bananas<0){
+                gameoverScreen.style.visibility = "visible";
+            }
+        }, 500)
     );
 }
-
+gameoverButton.addEventListener("click",()=>{
+    window.location.reload();
+});
 
 function monkeyHealth(health){
     monkeyArray.forEach(monkey => {
