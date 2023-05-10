@@ -14,7 +14,7 @@ export let snackList = [
 
 export let decorationList = [
     "./images/streamers.png",
-    "./images/goodiebags.png",
+    "./images/goodiebag.png",
     "./images/discoball.png",
     "./images/partyhats.png",
     "./images/glowbeachball.png",

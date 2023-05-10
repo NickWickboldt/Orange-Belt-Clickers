@@ -7,6 +7,7 @@ const tree2 = document.querySelector(".tree2");
 const snackIMG = document.createElement("img");
 const grid3 = document.querySelector(".grid-3");
 const decorationStand = document.querySelector(".stand1");
+const decorIMG = document.querySelector(".decor-img");
 
 
 let prices = {
@@ -98,7 +99,7 @@ function setSnackImage(snackIdentifier){
     snackIMG.classList.add("snack-img");
     grid3.appendChild(snackIMG);
 }
-
+decorIMG.src = decorationList[currentDecoration];
 decorationStand.addEventListener("click",()=>{
     if(coins>=prices.decorationPrice){
         coins-=prices.decorationPrice;
@@ -107,7 +108,7 @@ decorationStand.addEventListener("click",()=>{
         prices.decorationPrice * prices.decorationMultiplier;
         currentDecoration++;
         clickAmount = clickAmount * prices.decorationMultiplier;
-
+        decorIMG.src = decorationList[currentDecoration];
     }
 });
 decorationStand.addEventListener("mouseover",()=>{
@@ -115,4 +116,13 @@ decorationStand.addEventListener("mouseover",()=>{
 });
 decorationStand.addEventListener("mouseleave",()=>{
     removeDisplayPrice(currentDisplay);
+});
+
+const spinner = document.querySelector(".spinner");
+spinner.style.transition = "5s ease";
+
+spinner.addEventListener("click",()=>{
+    let result = Math.round(Math.random()*360); //random 0deg - 360deg
+    let spinDegrees = result + 3000; 
+    spinner.style.transform = "rotateZ(" + spinDegrees + "deg)";
 });

@@ -132,3 +132,21 @@
     width:15vmin;
     height:15vmin;
 }
+.decoration{
+    position: absolute;
+    top:10vmin;
+    left:30%;
+    width:80vmin;
+    height:30vmin;
+}
+.decor-img{
+    width:70%;
+    z-index: -10000;
+}
+.spinner{
+    width:20vmin;
+    height:20vmin;
+    align-self: flex-end;
+    padding:5vmin;
+    z-index: 10000;
+}
