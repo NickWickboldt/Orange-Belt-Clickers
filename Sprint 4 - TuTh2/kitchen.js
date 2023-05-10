@@ -71,6 +71,11 @@ recipeX.addEventListener("click",()=>{
 
 for (const recipe in recipes) {
     const recipeIMG = document.createElement("img");
+    recipeIMG.addEventListener("click",()=>{
+        let item = recipeIMG.outerHTML;
+        let itemToSend = item.substring(10,item.length-2);
+        makeRecipe(itemToSend);
+    });
     recipeIMG.alt = recipe;
     recipeGrid.appendChild(recipeIMG);
 }
@@ -119,3 +124,16 @@ battlefieldButton.addEventListener("click",()=>{
     window.sessionStorage.setItem("recipe_storage",recipeSender); //send sender
     window.location.href = "./battlefield.html";
 });
+
+function makeRecipe(recipeToMake){ //string recipe
+    let ingredientArray = [];
+    for (const recipeTest in recipes) { //finding match
+        if(recipeTest===recipeToMake){// if match
+            let recIng = recipes[recipeTest];
+            for (const ingredient in recIng) {
+                ingredientArray.push(recIng[ingredient]); //list of ingrdts
+            }
+        }
+    }
+    console.log(ingredientArray);
+}
