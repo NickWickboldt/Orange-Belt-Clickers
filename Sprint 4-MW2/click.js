@@ -1,4 +1,7 @@
 import { dimensions, dimensionPriceList } from "./lists.js";
+let crystalClickSound = new Audio("./crystal-click.mp3");
+let teleportSound = new Audio("./teleport.mp3");
+let spinnerSound = new Audio("./spinner.mp3");
 //Crystal clicking
 const crystal = document.querySelector(".crystal");
 const crystalLabel = document.querySelector(".crystals");
@@ -14,6 +17,7 @@ const armorILabel = document.querySelector(".armor-label");
 const textBox = document.createElement("p");
 
 crystal.addEventListener("click",()=>{
+    crystalClickSound.play();
     crystals = crystals + clickAmount;
     crystalLabel.innerHTML = "Crystals: "+ crystals;
 });
@@ -82,9 +86,13 @@ const spinner = document.querySelector(".spinner");
 spinner.style.transition = "5s ease";
 
 spinner.addEventListener("click",()=>{
+    spinnerSound.play();
     let result = Math.round(Math.random()*360); //random 0deg - 360deg
     let spinDegrees = result + 3000; 
     spinner.style.transform = "rotateZ(" + spinDegrees + "deg)";
+    setTimeout(() => {
+        spinnerSound.pause();
+    }, 5000);
 });
 
 let armorButton = document.querySelector(".armor");
@@ -141,6 +149,7 @@ multiverseTeleporter.innerHTML = dimensionPriceList[currentDimension];
 
 multiverseTeleporter.addEventListener("click",()=>{
     if(crystals>dimensionPriceList[currentDimension]){
+        teleportSound.play();
         crystals = crystals - dimensionPriceList[currentDimension];
         currentDimension++; //go to new dimension
         crystalLabel.innerHTML = "Crystals: " + crystals; //update text
