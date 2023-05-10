@@ -34,8 +34,8 @@ export let pickaxeArray = [
     "./items/quartz_pickaxe.png",//10
     "./items/nether_brick_pickaxe.png",//11
     "./items/blaze_pickaxe.png",//12
-    "./items/wither_bone_pickaxe",//13
-    "./items/netherite_pickaxe",//14
+    "./items/wither_bone_pickaxe.png",//13
+    "./items/netherite_pickaxe.png",//14
     "./items/end_stone_pickaxe.png",//15
     "./items/ender_pearl_pickaxe.png",//16
     "./items/end_crystal_pickaxe.png",//17

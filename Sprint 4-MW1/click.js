@@ -3,11 +3,12 @@ import {blockArray, pickaxeArray, dimensionList,
         blacksmithList, farmerList, librarianList} from "./lists.js";
 
 const block = document.querySelector(".block");
+let gameTitle = document.querySelector(".title");
 let blockAmountLabel = document.querySelector(".blocks");
 let pickaxe = document.querySelector(".pickaxe");
 const blockUpgradeButton = document.querySelector(".block-upgrade");
 
-let blockAmount = 999999999990;
+let blockAmount = 0;
 let blockUpgradeCost = 20;
 let blockUpgradeCounter = 0;
 let multipliers = {
@@ -17,6 +18,8 @@ let multipliers = {
     pickaxeUpgradeMultiplier: 2
 };
 let clickAmount = 0;
+let blacksmithID, farmerID, librarianID;
+let aDuration = 1000;
 
 blockAmountLabel.innerHTML = "Blocks: " + blockAmount;
 
@@ -80,13 +83,15 @@ document.body.style.backgroundImage = "url(" + dimensionList[0] + ")";
 dimensionButton.innerHTML = "Dimension Hop: " + dimensionArray[1];
 dimensionButton.addEventListener("click",()=>{
     if(blockAmount>= dimensionArray[currentDimension+1]){
-        blockAmount -= dimensionArray[currentDimension+1];
-        currentDimension++;
-        dimensionButton.innerHTML = 
-        "Dimension Hop: " + dimensionArray[currentDimension+1];
-        blockAmountLabel.innerHTML = "Blocks: " + blockAmount;
-        document.body.style.backgroundImage = 
-        "url(" + dimensionList[currentDimension] + ")";
+        if((currentDimension===0) && (blockUpgradeCounter>=10) && (pickaxeUpgradeCounter>=8) ){
+            updateDimension();
+            gameTitle.style.color = "white";
+            blockAmountLabel.style.color = "white";
+        }
+        if((currentDimension===1) && (blockUpgradeCounter>=15) && (pickaxeUpgradeCounter>=14) ){
+            updateDimension();
+            dimensionButton.innerHTML = "MAX LEVEL";
+        }
     }
 });
 
@@ -155,6 +160,19 @@ efficiencyButton.addEventListener("click",()=>{
         blockAmountLabel.innerHTML = "Blocks: " + blockAmount;
         enchantTracker[1]++;
         efficiencyLabel.innerHTML = efficiencyList[enchantTracker[1]];
+        aDuration-=100;
+        if(!(blacksmithID===null)){
+            clearInterval(blacksmithID);
+            startAutoclicker("Blacksmith",aDuration);
+        }
+        if(!(farmerID===null)){
+            clearInterval(farmerID);
+            startAutoclicker("Farmer",aDuration)
+        }
+        if(!(librarianID===null)){
+            clearInterval(librarianID);
+            startAutoclicker("Librarian",aDuration);
+        }
     }
 });
 
@@ -213,7 +231,7 @@ villagerArray.forEach(villager => {
     textBox.innerHTML = `${villager.name} upgrade: ${villager.cost}`;
     textBox.classList.add("popup-textbox");
     villager.object.addEventListener("mouseover",(e)=>{
-        console.log(e.pageX + " " + e.pageY);
+        
         textBox.style.top = e.pageY - 40 + 'px';
         textBox.style.left = e.pageX + 40 + 'px';
         document.body.appendChild(textBox);
@@ -221,4 +239,49 @@ villagerArray.forEach(villager => {
     villager.object.addEventListener("mouseleave",()=>{
         document.body.removeChild(textBox);
     });
+    villager.object.addEventListener("click",()=>{
+        if(villager.cost === "Max Level"){
+            return;
+        }
+        startAutoclicker(villager.name,aDuration);
+        blockAmount = blockAmount - villager.cost;
+        blockAmountLabel.innerHTML = "Blocks: " + blockAmount;
+        villager.level++;
+        let update = villagerLevelList[villager.id];
+        villager.cost = update[villager.level];
+        textBox.innerHTML = `${villager.name} upgrade: ${villager.cost}`;
+    });
 });
+
+function startAutoclicker(name,autoclickerDuration){
+    switch(name){
+        case "Blacksmith":
+            blacksmithID = setInterval(() => {
+                blockAmount = blockAmount + clickAmount;
+                blockAmountLabel.innerHTML = "Blocks: " + blockAmount;
+            }, autoclickerDuration);
+            break;
+        case "Farmer":
+            farmerID = setInterval(() => {
+                blockAmount = blockAmount + clickAmount;
+                blockAmountLabel.innerHTML = "Blocks: " + blockAmount;
+            }, autoclickerDuration/2);
+            break;
+        case "Librarian":
+            librarianID = setInterval(() => {
+                blockAmount = blockAmount + clickAmount;
+                blockAmountLabel.innerHTML = "Blocks: " + blockAmount;
+            }, autoclickerDuration/3);
+            break;
+    }
+}
+
+function updateDimension(){
+    blockAmount -= dimensionArray[currentDimension+1];
+    currentDimension++;
+    dimensionButton.innerHTML = 
+    "Dimension Hop: " + dimensionArray[currentDimension+1];
+    blockAmountLabel.innerHTML = "Blocks: " + blockAmount;
+    document.body.style.backgroundImage = 
+    "url(" + dimensionList[currentDimension] + ")";
+}
