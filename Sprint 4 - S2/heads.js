@@ -14,11 +14,11 @@ function spawnHead(){
         switch(powerUp){
             case 0:
                 powerUps.x2 = true;
-                displayPowerUp(0,powerUps.x2Duration);
+                displayPowerUp(0,powerUps.x2Duration,"powerUps.x2");
             break;
             case 1:
                 powerUps.x4 = true;
-                displayPowerUp(1,powerUps.x4Duration);
+                displayPowerUp(1,powerUps.x4Duration,"powerUps.x4");
             break;
             case 2:
                 powerUps.flashSale = true;

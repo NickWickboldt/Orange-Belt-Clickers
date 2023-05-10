@@ -48,14 +48,21 @@ autoClickerButton.addEventListener("mouseleave",()=>{
     autoClickerButton.innerHTML = "Auto Clicker";
 });
 
-export function displayPowerUp(powerup, duration){
+export function displayPowerUp(powerupID, duration, powerup){
     const powerupIMG = document.createElement("img");
-    powerupIMG.src = buffList[powerup];
+    powerupIMG.src = buffList[powerupID];
     //maybe classList.add
     powerUpBox.appendChild(powerupIMG);
     setTimeout(() => {
-        powerUpBox.removeChild(powerupIMG);
+        powerUpBox.removeChild(powerupIMG);  
+        if(powerup === "powerUps.x2"){
+            clickAmount/=2;
+        }
+        if(powerup === "powerUps.x4"){
+            clickAmount/=4;
+        }
     }, duration);
+    
 }
 
 const buyTotem = document.getElementById("buy-totem");
@@ -100,10 +107,33 @@ buySpeed.addEventListener("click",()=>{
 
 function clickFunction(amount){
     if(powerUps.x2===true){
+        console.log("t")
         amount *= 2;
     }
     if(powerUps.x4===true){
+        console.log("4")
         amount *= 4;
     }
     return amount;
 }
+
+buyTotem.addEventListener("mouseover",()=>{
+    buyTotem.innerHTML = upgradePrices.totem;
+});
+buyTotem.addEventListener("mouseleave",()=>{
+    buyTotem.innerHTML = "Buy Totem";
+});
+
+buyNick.addEventListener("mouseover",()=>{
+    buyNick.innerHTML = upgradePrices.nick;
+});
+buyNick.addEventListener("mouseleave",()=>{
+    buyNick.innerHTML = "Buy Nick";
+});
+
+buySpeed.addEventListener("mouseover",()=>{
+    buySpeed.innerHTML = upgradePrices.speed;
+});
+buySpeed.addEventListener("mouseleave",()=>{
+    buySpeed.innerHTML = "Buy Speed";
+});
