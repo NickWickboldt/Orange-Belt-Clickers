@@ -150,7 +150,7 @@ a{
     cursor:pointer;
 }
 .shop-item{
-    width:20vmin;
+    width:15vmin;
     height: 20vmin;
     border:solid darkslategray 1px;
     border-radius: 5%;
@@ -186,6 +186,7 @@ a{
 }
 .storage-crop, .recipe-label{
     padding:.2vmin;
+    font-size:2vmin;
 }
 .recipes{
     position: absolute;
@@ -219,6 +220,7 @@ a{
     background-color: saddlebrown;
     border:solid darkslategrey 1px;
     border-radius: 5%;
+    z-index: 100;
 }
 .recipe-title{
     text-align: center;
@@ -256,8 +258,8 @@ a{
 }
 .steam{
     position: absolute;
-    left:45vmin;
-    top:45vmin;
+    left:20%;
+    top:55vh;
     width:60%;
     height:20vmin;
 }
