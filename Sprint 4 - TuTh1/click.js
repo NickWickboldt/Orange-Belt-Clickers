@@ -20,7 +20,7 @@ let upgradeCosts = {
     weaponsMultiplier: 2
 }
 export let currentWeaponIMG = 0;
-let bananas = 1;
+let bananas = 100000;
 
 tree.addEventListener("click",()=>{
     bananas = bananas + clickAmount;
@@ -180,3 +180,41 @@ speedButton.addEventListener("click",()=>{
         autoClicker();
     }
 });
+
+const bossBox = document.querySelector(".bossfight-box");
+const healthbar = document.querySelector(".healthbar");
+const boss = document.querySelector(".boss");
+
+function spawnBoss(){
+    setTimeout(() => {
+        bossBox.style.visibility = "visible";
+        bossfight();
+    }, 1000);
+}
+
+function bossfight(){
+    //creating health
+    let bossHealth = document.createElement("div");
+    bossHealth.classList.add("health");
+    healthbar.appendChild(bossHealth);
+    //starting theft
+    let bossID = setInterval(() => {
+        bananas--;
+        bananaAmount.innerHTML = "Bananas: " + bananas;
+    }, 300);
+    //defeat boss mechanic
+    let health = 100;
+    boss.addEventListener("click",()=>{
+        health--;
+        bossHealth.style.width = health + "%";
+        if(health===0){
+            bananas+= Math.round((.05 * bananas));
+            bananaAmount.innerHTML = "Bananas: " + bananas;
+            clearInterval(bossID);
+            bossBox.style.visibility = "hidden";
+            healthbar.removeChild(bossHealth);
+            spawnBoss();
+        }
+    });
+}
+spawnBoss();
