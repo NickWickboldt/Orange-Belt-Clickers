@@ -2,13 +2,20 @@ import {blockArray, pickaxeArray, dimensionList,
         fortuneList, efficiencyList, rarityList,
         blacksmithList, farmerList, librarianList} from "./lists.js";
 
+let vSound1 = new Audio("./sounds/villagerSound1.mp3");
+let vSound2 = new Audio("./sounds/villagerSound2.mp3");
+let vSound3 = new Audio("./sounds/villagerSound3.mp3");
+let blockSound = new Audio("./sounds/blockHit.mp3");
+let enchantSound = new Audio("./sounds/enchant.mp3");
+let vSoundList = [vSound1, vSound2, vSound3];
+
 const block = document.querySelector(".block");
 let gameTitle = document.querySelector(".title");
 let blockAmountLabel = document.querySelector(".blocks");
 let pickaxe = document.querySelector(".pickaxe");
 const blockUpgradeButton = document.querySelector(".block-upgrade");
 
-let blockAmount = 0;
+let blockAmount = 9999990;
 let blockUpgradeCost = 20;
 let blockUpgradeCounter = 0;
 let multipliers = {
@@ -24,6 +31,7 @@ let aDuration = 1000;
 blockAmountLabel.innerHTML = "Blocks: " + blockAmount;
 
 block.addEventListener("click", ()=>{
+    blockSound.play();
     if(clickAmount===0){
         blockAmount++;
     }else{
@@ -139,6 +147,7 @@ rarityButton.addEventListener("mouseleave",()=>{
 
 fortuneButton.addEventListener("click",()=>{
     if(blockAmount>fortuneList[enchantTracker[0]]){
+        enchantSound.play();
         if(enchantTracker[0]===3){
             fortuneLabel.innerHTML = fortuneList[enchantTracker[0]];
             return;
@@ -152,6 +161,7 @@ fortuneButton.addEventListener("click",()=>{
 
 efficiencyButton.addEventListener("click",()=>{
     if(blockAmount>efficiencyList[enchantTracker[1]]){
+        enchantSound.play();
         if(enchantTracker[1]===5){
             efficiencyLabel.innerHTML = efficiencyList[enchantTracker[1]];
             return;
@@ -178,6 +188,7 @@ efficiencyButton.addEventListener("click",()=>{
 
 rarityButton.addEventListener("click",()=>{
     if(blockAmount>rarityList[enchantTracker[2]]){
+        enchantSound.play();
         if(enchantTracker[2]===3){
             rarityLabel.innerHTML = rarityList[enchantTracker[2]];
             return;
@@ -231,7 +242,8 @@ villagerArray.forEach(villager => {
     textBox.innerHTML = `${villager.name} upgrade: ${villager.cost}`;
     textBox.classList.add("popup-textbox");
     villager.object.addEventListener("mouseover",(e)=>{
-        
+        let randomSound =  Math.floor(Math.random() * 3);
+        vSoundList[randomSound].play(); 
         textBox.style.top = e.pageY - 40 + 'px';
         textBox.style.left = e.pageX + 40 + 'px';
         document.body.appendChild(textBox);
@@ -243,6 +255,7 @@ villagerArray.forEach(villager => {
         if(villager.cost === "Max Level"){
             return;
         }
+        //check for money here
         startAutoclicker(villager.name,aDuration);
         blockAmount = blockAmount - villager.cost;
         blockAmountLabel.innerHTML = "Blocks: " + blockAmount;
