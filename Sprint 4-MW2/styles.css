@@ -1,7 +1,11 @@
+@font-face {
+    font-family: spaceFont;
+    src: url("./spaceFont.ttf");
+}
 *{
     margin:0;
     padding:0;
-    border: solid black 3px;
+    font-family: spaceFont;
 }
 .flex{
     display:flex;
@@ -60,6 +64,17 @@
     width:30px;
     height:30px;
     align-self: flex-end;
+    text-align: center;
+    font-weight:bold;
+    font-size:3vmin;
+    transition: .3s ease;
+}
+.x-out:hover, .x-i-out:hover{
+    background-color: rgb(207, 0, 0);
+    cursor:pointer;
+}
+.x-out:active, .x-i-out:active{
+    background-color: rgb(157, 0, 0);
 }
 .armor, .enchantments, .auto-clicker{
     width:30%;
