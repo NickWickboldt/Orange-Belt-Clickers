@@ -1,4 +1,4 @@
-import { cropStorageLabels,recipes,recipeStorageLabels,recipeStorage } from "./lists.js";
+import { cropStorageLabels,recipes,recipeStorageLabels,recipeStorage,cropArray } from "./lists.js";
 const stove = document.querySelector(".stove");
 
 let threshold = {
@@ -74,7 +74,30 @@ for (const recipe in recipes) {
     recipeIMG.addEventListener("click",()=>{
         let item = recipeIMG.outerHTML;
         let itemToSend = item.substring(10,item.length-2);
-        makeRecipe(itemToSend);
+        let ingList = makeRecipe(itemToSend);
+    });
+    const ingPopUp = document.createElement("ul");
+    let tempList = [];
+    recipeIMG.addEventListener("mouseover",(e)=>{
+        let item = recipeIMG.outerHTML;
+        let itemToSend = item.substring(10,item.length-2);
+        let ingList = makeRecipe(itemToSend);
+        ingPopUp.classList.add("ing-popup");
+        ingPopUp.style.left = e.pageX+40 + "px";
+        ingPopUp.style.top = e.pageY+40 + "px";
+        for(let i =0; i<ingList.length; i++){
+            const listItem = document.createElement("li");
+            listItem.innerHTML = cropArray[i].substring(9,cropArray[i].length-4) + ": " + ingList[i];
+            tempList.push(listItem);
+            ingPopUp.appendChild(listItem);
+        }
+        document.body.appendChild(ingPopUp);
+    });
+    recipeIMG.addEventListener("mouseleave",()=>{
+        tempList.forEach(child => {
+            ingPopUp.removeChild(child);
+        });
+        document.body.removeChild(ingPopUp);
     });
     recipeIMG.alt = recipe;
     recipeGrid.appendChild(recipeIMG);
@@ -135,5 +158,5 @@ function makeRecipe(recipeToMake){ //string recipe
             }
         }
     }
-    console.log(ingredientArray);
+    return ingredientArray;
 }

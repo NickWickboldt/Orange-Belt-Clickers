@@ -293,3 +293,15 @@ a{
     height:100vw;
     z-index: -1;
 }
+.ing-popup{
+    background-color: white;
+    width:30vmin;
+    position: absolute;
+    top:0;
+    left:0;
+    z-index: 1000;
+}
+.ing-popup>li{
+    font-size:2vmin;
+    color:darkgrey;
+}
