@@ -34,50 +34,86 @@ export let prices = {
 
 export let recipes = {
     stinkweedStew: {
-        stinkweed: 10
+        stinkweed: 10,
+        blowflower: 0,
+        toxicShrooms: 0,
+        zucchini: 0,
+        purpleStalk: 0,
+        quantumOnions: 0,
+        triStemmedCarrots: 0,
+        greenGlobLeaf: 0,
+        greenTree: 0
     },
     blowflowerBread: {
+        stinkweed: 5,
         blowflower: 20,
-        stinkweed: 5
+        toxicShrooms: 0,
+        zucchini: 0,
+        purpleStalk: 0,
+        quantumOnions: 0,
+        triStemmedCarrots: 0,
+        greenGlobLeaf: 0,
+        greenTree: 0
     },
     toxicPizza: {
-        blowflower: 15, 
         stinkweed: 10,
-        quantumOnions: 10,
+        blowflower: 15,
         toxicShrooms: 10,
         zucchini: 10,
-        greenGlobLeaf: 20 
+        purpleStalk: 0,
+        quantumOnions: 10,
+        triStemmedCarrots: 0,
+        greenGlobLeaf: 20,
+        greenTree: 0
     },
     quantumBurrito: {
-        blowflower: 30, 
         stinkweed: 20,
-        quantumOnions: 20,
+        blowflower: 30,
+        toxicShrooms: 0,
         zucchini: 10,
-        greenTree: 10,
-        purpleStalk: 15, 
+        purpleStalk: 15,
+        quantumOnions: 20,
+        triStemmedCarrots: 0,
+        greenGlobLeaf: 0,
+        greenTree: 10
     },
     quantumStew: {
         stinkweed: 5,
+        blowflower: 0,
         toxicShrooms: 15,
         zucchini: 20,
         purpleStalk: 20,
-        quantumOnions: 10
+        quantumOnions: 10,
+        triStemmedCarrots: 0,
+        greenGlobLeaf: 0,
+        greenTree: 0
     },
     zucchiniRamen: {
+        stinkweed: 10,
+        blowflower: 0,
+        toxicShrooms: 0,
         zucchini: 50,
+        purpleStalk: 0,
         quantumOnions: 5,
         triStemmedCarrots: 20,
-        greenGlobLeaf: 5
+        greenGlobLeaf: 5,
+        greenTree: 0
     },
     greenTreeSmoothie: {
-        greenTree: 30,
-        greenGlobLeaf: 10,
+        stinkweed: 5,
+        blowflower: 0,
+        toxicShrooms: 0,
+        zucchini: 0,
+        purpleStalk: 10,
+        quantumOnions: 0,
         triStemmedCarrots: 20,
-        purpleStalk:10,
-        stinkweed: 5
+        greenGlobLeaf: 10,
+        greenTree: 30
     },
     superSalad: {
+        stinkweed: 0,
         blowflower: 5,
+        toxicShrooms: 0,
         zucchini: 20,
         purpleStalk: 20,
         quantumOnions: 10,
