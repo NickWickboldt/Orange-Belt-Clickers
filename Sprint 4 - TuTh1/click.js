@@ -4,6 +4,14 @@ const tree = document.querySelector(".tree");
 const attackMonkeyBox = document.querySelector(".attack-monkeys");
 const gameoverScreen  = document.querySelector(".gameover");
 const gameoverButton = document.querySelector(".play-again");
+let monkeySound = new Audio("./monkey.mp3");
+let monkeySlap = new Audio("./slap.mp3");
+let chaching = new Audio("./chaching.mp3");
+let rain = new Audio("./rain.mp3");
+let bossfightMusic = new Audio("./boss.mp3");
+rain.loop = true;
+let playing = false;
+monkeySound.volume = .5;
 let monkeyArray = [];
 let attackingMonkeyArray = [];
 export let damageAmount = 1;
@@ -20,9 +28,13 @@ let upgradeCosts = {
     weaponsMultiplier: 2
 }
 export let currentWeaponIMG = 0;
-let bananas = 100000;
+let bananas = 1;
 
 tree.addEventListener("click",()=>{
+    if(playing===false){
+        rain.play();
+        playing=true;
+    }
     bananas = bananas + clickAmount;
     bananaAmount.innerHTML = "Bananas: " + bananas;
 });
@@ -39,6 +51,7 @@ function attack(){
     let id;
     return monkeyArray.forEach(monkey => {
         return id = setTimeout(() => {
+            monkeySound.play();
             monkey.style.transition = "10s ease";
             monkey.style.top = "60%";
             setTimeout(() => {
@@ -57,7 +70,7 @@ function stealBananas(){
             if(bananas<0){
                 gameoverScreen.style.visibility = "visible";
             }
-        }, 500)
+        }, 5000)
     );
 }
 gameoverButton.addEventListener("click",()=>{
@@ -70,6 +83,7 @@ function monkeyHealth(health){
         monkey.addEventListener("click",()=>{
             currentHP= currentHP + damageAmount;
             if(currentHP>=health){
+                monkeySlap.play();
                 clearInterval(attackingMonkeyArray.pop());
                 bananas+=25;
                 bananaAmount.innerHTML = "Bananas: " + bananas;
@@ -120,6 +134,8 @@ weaponButton.addEventListener("mouseleave",()=>{
 
 weaponButton.addEventListener("click",()=>{
     if(bananas>=upgradeCosts.weapons){
+        attackingMonkeyArray = [];
+        chaching.play();
         bananas = bananas - upgradeCosts.weapons;
         upgradeCosts.weapons = upgradeCosts.weapons * upgradeCosts.weaponsMultiplier;
         bananaAmount.innerHTML = "Bananas: " + bananas;
@@ -141,6 +157,7 @@ autoClickerButton.addEventListener("click",()=>{
         return;
     }
     else if(bananas> upgradeCosts.autoClicker){
+        chaching.play();
         bananas = bananas - upgradeCosts.autoClicker;
         bananaAmount.innerHTML = "Bananas: " + bananas;
         autoClickerButton.innerHTML = "PURCHASED";
@@ -158,6 +175,7 @@ function autoClicker(){
 
 defenseButton.addEventListener("click",()=>{
     if(bananas >= upgradeCosts.defense){
+        chaching.play();
         createMonkey();
         bananas = bananas - upgradeCosts.defense;
         upgradeCosts.defense = upgradeCosts.defense * upgradeCosts.defenseMultiplier;
@@ -170,6 +188,7 @@ defenseButton.addEventListener("click",()=>{
 
 speedButton.addEventListener("click",()=>{
     if(bananas >= upgradeCosts.speed){
+        chaching.play();
         createMonkey();
         bananas = bananas - upgradeCosts.speed;
         upgradeCosts.speed = upgradeCosts.speed * upgradeCosts.speedMultiplier;
@@ -189,16 +208,20 @@ function spawnBoss(){
     setTimeout(() => {
         bossBox.style.visibility = "visible";
         bossfight();
-    }, 1000);
+    }, 300000);
 }
 
 function bossfight(){
+    bossfightMusic.play();
     //creating health
     let bossHealth = document.createElement("div");
     bossHealth.classList.add("health");
     healthbar.appendChild(bossHealth);
     //starting theft
     let bossID = setInterval(() => {
+        if(bananas<0){
+            gameoverScreen.style.visibility = "visible";
+        }
         bananas--;
         bananaAmount.innerHTML = "Bananas: " + bananas;
     }, 300);
@@ -208,6 +231,8 @@ function bossfight(){
         health--;
         bossHealth.style.width = health + "%";
         if(health===0){
+            bossfightMusic.pause();
+            bossfightMusic.currentTime = 0;
             bananas+= Math.round((.05 * bananas));
             bananaAmount.innerHTML = "Bananas: " + bananas;
             clearInterval(bossID);
