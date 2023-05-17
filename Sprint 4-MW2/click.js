@@ -8,7 +8,7 @@ const crystalLabel = document.querySelector(".crystals");
 const autoClickerButton = document.querySelector(".auto-clicker");
 let spaceshipOriginal = document.querySelector(".spaceship");
 
-let crystals = 500000000000000;
+let crystals = 0;
 let clickAmount = 1;
 crystalLabel.innerHTML = "Crystals: 0";
 let armorLevel = 0;
@@ -92,7 +92,19 @@ spinner.addEventListener("click",()=>{
     spinner.style.transform = "rotateZ(" + spinDegrees + "deg)";
     setTimeout(() => {
         spinnerSound.pause();
+        spinner.style.transition = "0s";
+        getReward(result);
+        spinner.style.visibility = "hidden";    
     }, 5000);
+    setTimeout(() => {
+        spinner.style.transform = "rotateZ(0deg)";  
+    }, 8000);
+    setTimeout(() => {
+        spinner.style.transition = "5s ease"; 
+    }, 10000);
+    setTimeout(() => {
+        spinner.style.visibility = "visible";  
+    }, 30000);
 });
 
 let armorButton = document.querySelector(".armor");
@@ -228,3 +240,27 @@ multiverseTeleporter.addEventListener("mouseover",(e)=>{
 multiverseTeleporter.addEventListener("mouseleave",()=>{
     document.body.removeChild(textBox);
 });
+
+function getReward(item){
+    switch(true){
+        case (item < 60):
+            crystals += 10;
+        break;
+        case (item >= 60 && item <120):
+            crystals += (crystals * .2);
+        break;
+        case (item >= 120 && item <180):
+            crystals *= 2;
+        break;
+        case (item >= 180 && item <240):
+            crystals -= (crystals * .1);
+        break;
+        case (item >= 240 && item < 300):
+            crystals -= (crystals * .5);
+        break;
+        case (item >= 300):
+            crystals = 0;
+        break;
+    }
+    crystalLabel.innerHTML = "Crystals: " + crystals;
+}
