@@ -1,15 +1,16 @@
-import { recipeStorageLabels, recipeStorage } from "./lists";
+import { recipeStorageLabels} from "./lists.js";
 
 let kitchenSourcedRecipes= [];
 let tempC = [];
 window.addEventListener("load",()=>{
     kitchenSourcedRecipes = window.sessionStorage.getItem("recipe_storage");
-    if(kitchenSourcedRecipes === ''){
+    console.log(kitchenSourcedRecipes);
+    if(kitchenSourcedRecipes === null){
         for(let i =0; i<8; i++){
             recipeStorageLabels[i].innerHTML = 0;
+            tempC.push(0);
         }
     }else{
-        
         let tempS = '';
         for(let i = 0; i<kitchenSourcedRecipes.length; i++){
             if(kitchenSourcedRecipes[i] === ','){
@@ -23,18 +24,12 @@ window.addEventListener("load",()=>{
             recipeStorageLabels[i].innerHTML = tempC[i];
         }
     }
+    console.log(tempC);
 });
 
-const kitchenButton = document.querySelector(".kitchen-link");
+const kitchenButton = document.querySelector(".index-link");
 kitchenButton.addEventListener("click",()=>{
-    let recipeSender = [];
-    if(kitchenSourcedRecipes === null){ //if no recipes yet
-        window.location.href = "./index.html";
-    }else{ //if recipes, fill recipeSender
-        for(let i = 0; i<tempC.length; i++){
-            recipeSender.push(tempC[i]);
-        }
-    }
+    let recipeSender = tempC;
     window.sessionStorage.setItem("recipe_storage",recipeSender); //send sender
     window.location.href = "./index.html";
 });

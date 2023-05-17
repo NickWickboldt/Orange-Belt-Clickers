@@ -300,8 +300,26 @@ a{
     top:0;
     left:0;
     z-index: 1000;
+    visibility: hidden;
+    padding:1rem;
+    border-radius: 5%;
 }
 .ing-popup>li{
     font-size:2vmin;
     color:darkgrey;
+    list-style-type: none;
+    text-align: center;
+    padding:.1rem;
+}
+.cooking-recipe{
+    position: absolute;
+    top:75%;
+    left:50%;
+    transform: translate(-50%);
+    background-color: red;
+    z-index: 0;
+    width:15vmin;
+    height:15vmin;
+    filter: brightness(.5);
+    opacity: .5;
 }

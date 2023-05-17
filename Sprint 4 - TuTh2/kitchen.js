@@ -1,30 +1,45 @@
-import { cropStorageLabels,recipes,recipeStorageLabels,recipeStorage,cropArray } from "./lists.js";
+import { cropStorageLabels,recipes,recipeStorageLabels,cropArray} from "./lists.js";
 const stove = document.querySelector(".stove");
+const ovenWindow = document.querySelector(".oven-window");
 
 let threshold = {
-    initial: 100
+    initial: 10
 }
 let clickCounter = 0;
+let cooking = false;
 
 stove.addEventListener("click",()=>{
-    clickCounter++;
-    console.log(clickCounter);  //testing
-    resetClickerOnThreshold();  //checking for reset
+    if(cooking){
+        clickCounter++;
+        resetClickerOnThreshold();
+    }
 });
 
 function resetClickerOnThreshold(){
     if(clickCounter===threshold.initial){   //if threshold, reset
+        let i;
+        let child = ovenWindow.childNodes[3];
+        child = child.outerHTML.substring(10,child.outerHTML.length-25);
+        for(i =0; i<recipeStorageLabels.length; i++){
+            if(child===recipeStorageLabels[i].outerHTML.substring(8,recipeStorageLabels[i].outerHTML.length-8)){
+                intoRecipeStorage(i);
+            }
+        }
         clickCounter = 0;
-        console.log("reset");
+        cooking = false;
     }
 }
 let farmSourcedCrops= [];
 let tempA = [];
+let battlefieldSourcedRecipes= [];
+let tempB = [];
+
 window.addEventListener("load",()=>{
     farmSourcedCrops = window.sessionStorage.getItem("crop_storage");
-    if(farmSourcedCrops === ''){
+    if(farmSourcedCrops === null){
         for(let i =0; i<9; i++){
             cropStorageLabels[i].innerHTML = 0;
+            tempA.push(0);
         }
     }else{
         
@@ -41,18 +56,47 @@ window.addEventListener("load",()=>{
             cropStorageLabels[i].innerHTML = tempA[i];
         }
     }
-    console.log(farmSourcedCrops);
+    console.log(tempA)
+});
+
+window.addEventListener("load",()=>{
+    battlefieldSourcedRecipes = window.sessionStorage.getItem("recipe_storage");
+    if(battlefieldSourcedRecipes === null){
+        for(let i =0; i<8; i++){
+            recipeStorageLabels[i].innerHTML = 0;
+            tempB.push(0);
+        }
+    }else{
+        
+        let tempS = '';
+        for(let i = 0; i<battlefieldSourcedRecipes.length; i++){
+            if(battlefieldSourcedRecipes[i] === ','){
+                tempB.push(parseInt(tempS));
+                tempS = '';
+            }else{
+                tempS += battlefieldSourcedRecipes[i];
+            }
+        }tempB.push(parseInt(tempS));
+        for(let i = 0; i<tempB.length; i++){
+            recipeStorageLabels[i].innerHTML = tempB[i];
+        }
+    }
+    console.log(tempB);
+});
+
+const battlefieldButton = document.querySelector(".battlefield-link");
+battlefieldButton.addEventListener("click",()=>{
+    let recipeSender = tempB;
+    let cropSender = tempA;
+    window.sessionStorage.setItem("recipe_storage",recipeSender); //send sender
+    window.sessionStorage.setItem("crop_storage",cropSender);
+    window.location.href = "./battlefield.html";
 });
 const farmButton = document.querySelector(".farm-link");
 farmButton.addEventListener("click",()=>{
-    let cropSender = [];
-    if(farmSourcedCrops === null){
-        window.location.href = "./farm.html";
-    }else{
-        for(let i = 0; i<tempA.length; i++){
-            cropSender.push(tempA[i]);
-        }
-    }
+    let cropSender = tempA;
+    let recipeSender = tempB;
+    window.sessionStorage.setItem("recipe_storage",recipeSender); //send sender
     window.sessionStorage.setItem("crop_storage",cropSender);
     window.location.href = "./farm.html";
 });
@@ -71,84 +115,52 @@ recipeX.addEventListener("click",()=>{
 
 for (const recipe in recipes) {
     const recipeIMG = document.createElement("img");
-    recipeIMG.addEventListener("click",()=>{
-        let item = recipeIMG.outerHTML;
-        let itemToSend = item.substring(10,item.length-2);
-        let ingList = makeRecipe(itemToSend);
-    });
     const ingPopUp = document.createElement("ul");
+    ingPopUp.classList.add("ing-popup");
+    document.body.appendChild(ingPopUp);
     let tempList = [];
     recipeIMG.addEventListener("mouseover",(e)=>{
         let item = recipeIMG.outerHTML;
         let itemToSend = item.substring(10,item.length-2);
-        let ingList = makeRecipe(itemToSend);
-        ingPopUp.classList.add("ing-popup");
+        let ingList = getIngredients(itemToSend);
         ingPopUp.style.left = e.pageX+40 + "px";
         ingPopUp.style.top = e.pageY+40 + "px";
+        ingPopUp.style.visibility = "visible";
         for(let i =0; i<ingList.length; i++){
             const listItem = document.createElement("li");
             listItem.innerHTML = cropArray[i].substring(9,cropArray[i].length-4) + ": " + ingList[i];
             tempList.push(listItem);
             ingPopUp.appendChild(listItem);
         }
-        document.body.appendChild(ingPopUp);
     });
     recipeIMG.addEventListener("mouseleave",()=>{
         tempList.forEach(child => {
             ingPopUp.removeChild(child);
         });
-        document.body.removeChild(ingPopUp);
+        tempList = [];
+        ingPopUp.style.visibility = "hidden";
+    });
+    recipeIMG.addEventListener("click",()=>{
+        let item = recipeIMG.outerHTML;
+        let itemToSend = item.substring(10,item.length-2);
+        let ingList = getIngredients(itemToSend);
+        let canPurchase = testBuy(ingList); // true/false if have enough 
+        if(canPurchase){
+            buyRecipe(recipeIMG,ingList);
+        }else{
+            console.log("Not enough crops!");
+        }
     });
     recipeIMG.alt = recipe;
     recipeGrid.appendChild(recipeIMG);
 }
 
 function intoRecipeStorage(id){ //recipe - id
-    recipeStorage[id]++; //increases recipe in recipe storage numerically
-    recipeStorageLabels[id].innerHTML = recipeStorage[id]; //updates text on storage
+    tempB[id]++;
+    recipeStorageLabels[id].innerHTML = tempB[id]; //updates text on storage
 }
 
-let battlefieldSourcedRecipes= [];
-let tempB = [];
-window.addEventListener("load",()=>{
-    battlefieldSourcedRecipes = window.sessionStorage.getItem("recipe_storage");
-    console.log(battlefieldSourcedRecipes);
-    if(battlefieldSourcedRecipes === ''){
-        for(let i =0; i<8; i++){
-            recipeStorageLabels[i].innerHTML = 0;
-        }
-    }else{
-        
-        let tempS = '';
-        for(let i = 0; i<battlefieldSourcedRecipes.length; i++){
-            if(battlefieldSourcedRecipes[i] === ','){
-                tempB.push(parseInt(tempS));
-                tempS = '';
-            }else{
-                tempS += battlefieldSourcedRecipes[i];
-            }
-        }tempB.push(parseInt(tempS));
-        for(let i = 0; i<tempB.length; i++){
-            recipeStorageLabels[i].innerHTML = tempB[i];
-        }
-    }
-});
-
-const battlefieldButton = document.querySelector(".battlefield-link");
-battlefieldButton.addEventListener("click",()=>{
-    let recipeSender = [];
-    if(battlefieldSourcedRecipes === null){ //if no recipes yet
-        window.location.href = "./battlefield.html";
-    }else{ //if recipes, fill recipeSender
-        for(let i = 0; i<tempB.length; i++){
-            recipeSender.push(tempB[i]);
-        }
-    }
-    window.sessionStorage.setItem("recipe_storage",recipeSender); //send sender
-    window.location.href = "./battlefield.html";
-});
-
-function makeRecipe(recipeToMake){ //string recipe
+function getIngredients(recipeToMake){ //string recipe
     let ingredientArray = [];
     for (const recipeTest in recipes) { //finding match
         if(recipeTest===recipeToMake){// if match
@@ -159,4 +171,31 @@ function makeRecipe(recipeToMake){ //string recipe
         }
     }
     return ingredientArray;
+}
+
+function testBuy(iList){ //test if have enough to purchase the recipe
+    let b = true;
+    for(let i =0; i<iList.length; i++){
+        if(tempA[i] < iList[i]){
+            b = false;
+        }
+    }
+    return b;
+}
+
+function buyRecipe(recipeName, ingredientList){
+    for(let i =0; i<ingredientList.length; i++){
+        tempA[i] -= ingredientList[i];
+        cropStorageLabels[i].innerHTML = tempA[i];
+    }
+    recipeIntoStove(recipeName);
+}
+
+function recipeIntoStove(name){
+    const cookingIMG = document.createElement("img");
+    // cookingIMG.src = name.src;
+    cookingIMG.alt = name.alt;
+    cookingIMG.classList.add("cooking-recipe");
+    ovenWindow.appendChild(cookingIMG);
+    cooking = true;
 }
