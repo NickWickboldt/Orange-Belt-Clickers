@@ -125,4 +125,42 @@ spinner.addEventListener("click",()=>{
     let result = Math.round(Math.random()*360); //random 0deg - 360deg
     let spinDegrees = result + 3000; 
     spinner.style.transform = "rotateZ(" + spinDegrees + "deg)";
+    setTimeout(() => {
+        spinner.style.transition = "0s";
+        getReward(result);
+        spinner.style.visibility = "hidden";    
+    }, 5000);
+    setTimeout(() => {
+        spinner.style.transform = "rotateZ(0deg)";  
+    }, 8000);
+    setTimeout(() => {
+        spinner.style.transition = "5s ease"; 
+    }, 10000);
+    setTimeout(() => {
+        spinner.style.visibility = "visible";  
+    }, 30000);
 });
+
+function getReward(item){
+    switch(true){
+        case (item<60): 
+            coins+=100;
+        break;
+        case(item >= 60 && item <120):
+            coins+=1000;
+        break;
+        case(item >= 120 && item <180):
+            coins+= Math.round(coins * .02);
+        break;
+        case(item >= 180 && item < 240):
+            coins-=Math.round(coins * .02);
+        break;
+        case(item >= 240 && item <300):
+            coins-= Math.round(coins * .1);
+        break;
+        case(item >= 300): 
+            coins-=Math.round(coins * .5);
+        break;
+    }
+    coinLabel.innerHTML = "Chameleon Coins: " + coins;
+}
