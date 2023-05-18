@@ -1,4 +1,4 @@
-import { powerUps, displayPowerUp } from "./click.js";
+import { powerUps, displayPowerUp, setPrices, increaseTotem } from "./click.js";
 const lavaBox = document.querySelector(".lava-box");
 
 spawnHead();
@@ -22,15 +22,18 @@ function spawnHead(){
             break;
             case 2:
                 powerUps.flashSale = true;
-                displayPowerUp(2,powerUps.flashSaleDuration);
+                setPrices(.5);
+                displayPowerUp(2,powerUps.flashSaleDuration, "powerUps.flashSale");
             break;
             case 3:
                 powerUps.temporaryTotemUpgrade = true;
-                displayPowerUp(3,powerUps.temporaryTotemUpgradeDuration);
+                increaseTotem();
+                displayPowerUp(3,powerUps.temporaryTotemUpgradeDuration, "powerUps.temporaryTotemUpgrade");
             break;
             case 4:
                 powerUps.percent10 = true;
-                displayPowerUp(4,powerUps.percent10Duration);
+                setPrices(.1);
+                displayPowerUp(4,powerUps.percent10Duration, "powerUps.percent10");
             break;
         }
         head.remove();
@@ -47,5 +50,5 @@ function descend(head){
     }, 5000);
     setTimeout(() => {
         spawnHead();
-    }, 6000);
+    }, 60000);
 }

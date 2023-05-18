@@ -6,6 +6,7 @@ const powerUpBox = document.querySelector(".powerup-box");
 
 let strawberries = 1000;
 let clickAmount = 1;
+let currentTotem = 0;
 
 export let powerUps = {
     x2: false,
@@ -61,6 +62,15 @@ export function displayPowerUp(powerupID, duration, powerup){
         if(powerup === "powerUps.x4"){
             clickAmount/=4;
         }
+        if(powerup === "powerUps.flashSale"){
+            resetPrices(.5);
+        }
+        if(powerup === "powerUps.temporaryTotemUpgrade"){
+            currentTotem--;
+        }
+        if(powerup === "powerUps.percent10"){
+            resetPrices(.1);
+        }
     }, duration);
     
 }
@@ -84,6 +94,7 @@ buyTotem.addEventListener("click",()=>{
         berryLabel.innerHTML = "Strawberries: " + strawberries;
         upgradePrices.totem = upgradePrices.totem * upgradePrices.totemM;
         clickAmount = clickAmount * upgradePrices.totemM;
+        currentTotem++;
     }
 });
 
@@ -137,3 +148,33 @@ buySpeed.addEventListener("mouseover",()=>{
 buySpeed.addEventListener("mouseleave",()=>{
     buySpeed.innerHTML = "Buy Speed";
 });
+let oNick = 0;
+let oSpeed = 0;
+let oTotem = 0;
+function resetPrices(percent){
+    if(percent === .1){
+        upgradePrices.nick = oNick;
+        upgradePrices.speed = oSpeed;
+        upgradePrices.totem = oTotem;
+    }else{
+        upgradePrices.nick *= 2;
+        upgradePrices.speed *= 2;
+        upgradePrices.totem *= 2;
+    }
+}
+
+export function setPrices(percent){
+    oNick = upgradePrices.nick;
+    oSpeed = upgradePrices.speed;
+    oTotem = upgradePrices.totem;
+    upgradePrices.nick *=(1-percent);
+    buyNick.innerHTML = upgradePrices.nick;
+    upgradePrices.speed *=(1-percent);
+    buySpeed.innerHTML = upgradePrices.speed;
+    upgradePrices.totem *=(1-percent);
+    buyTotem.innerHTML = upgradePrices.totem;
+}
+
+export function increaseTotem(){
+    currentTotem++;
+}
