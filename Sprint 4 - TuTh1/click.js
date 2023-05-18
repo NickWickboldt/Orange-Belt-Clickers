@@ -29,7 +29,7 @@ let upgradeCosts = {
   weaponsMultiplier: 2,
 };
 export let currentWeaponIMG = 0;
-let bananas = 10000;
+let bananas = 1;
 
 tree.addEventListener("click", () => {
   if (playing === false) {
