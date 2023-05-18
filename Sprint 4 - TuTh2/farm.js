@@ -11,6 +11,9 @@ const plot9 = document.getElementById("crop9");
 const plot10 = document.getElementById("crop10");
 const plot11 = document.getElementById("crop11");
 const plot12 = document.getElementById("crop12");
+const monsterCoinsLabel = document.querySelector(".monster-coins");
+let monsterCoins = window.sessionStorage.getItem("monster_coins");
+monsterCoinsLabel.innerHTML = "Monster Coins: " + monsterCoins;
 
 let plotCounter = 0;    //maintains current plot to plant at
 let plotList = [plot1, plot2, plot3, plot4, plot5, 

@@ -323,3 +323,9 @@ a{
     filter: brightness(.5);
     opacity: .5;
 }
+.monster-coins{
+    position: absolute;
+    top:2vmin;
+    right:40%;
+
+}
