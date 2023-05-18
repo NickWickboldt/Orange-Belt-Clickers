@@ -1,4 +1,4 @@
-import { monkeyHP, clickAmount, currentWeaponIMG, damageAmount, autoClickerDuration } from "./click.js";
+import { monkeyHP, clickAmount, currentWeaponIMG, damageAmount, autoClickerDuration,autoClickerActive } from "./click.js";
 import { weaponList } from "./lists.js";
 const inventory = document.querySelector(".inventory");
 const shop = document.querySelector(".shop");
@@ -21,8 +21,12 @@ inventory.addEventListener("click",()=>{
     currentWeapon.src = weaponList[currentWeaponIMG];
     bpc.innerHTML = "BPC: " + clickAmount;
     damage.innerHTML = "Damage: " + damageAmount;
-    bps.innerHTML = "BPS: " + 
-        clickAmount * (2-(autoClickerDuration/1000));
+    if(autoClickerActive){
+        bps.innerHTML = "BPS: " + clickAmount * (2-(autoClickerDuration/1000));
+    }else{
+        bps.innerHTML = "BPS: " + 0;
+    }
+    
     iHUD.style.visibility = "visible";
 });
 
