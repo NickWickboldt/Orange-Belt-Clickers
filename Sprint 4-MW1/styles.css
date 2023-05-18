@@ -1,9 +1,15 @@
+@font-face {
+    font-family: minecraft;
+    src: url("./minecraft.otf");
+}
 *{
     margin:0;
     padding:0;
+    font-family: minecraft;
 }
 body{
     background-size: cover;
+    overflow:hidden;
 }
 .flex{
     display:flex;
@@ -32,12 +38,27 @@ body{
     grid-template-rows: 30% 70%;
 }
 .title, .blocks{
-    font-size:40px;
+    font-size:5vmin;
     font-weight:bold;
     width:100%;
     text-align: center;
     height:50px;
     border:none;
+    transition: .15s ease;
+}
+.title{
+    padding:2vmin;
+}
+.title:hover{
+    animation: titleShake 1s ease infinite;
+    cursor:default;
+    color:rgb(205, 182, 51);
+}
+.blocks:hover{
+    transform: rotateZ(-2deg);
+    color: rgb(205, 182, 51);
+    text-decoration: underline;
+    cursor:default;
 }
 .pickaxe, .block{
     width: 60%;
@@ -67,14 +88,21 @@ body{
     width:80%;
     border-radius: 20%;
     cursor:pointer;
-    font-size:30px;
+    font-size:4vmin;
     background-color: lightgreen;
+    opacity: .75;
+    transition: .15s ease;
+    border:none;
 }
 .block-upgrade:hover, .pickaxe-upgrade:hover, .dimension:hover{
-    background-color: rgb(95, 163, 95);
+    background-color: gold;
     height:21%;
     width:81%;
-    transition: .15s ease;
+    border-bottom: solid darkgreen 4px;
+    border-right:solid darkgreen 4px;
+    opacity: 1.0;
+    transform: rotateZ(2deg);
+    font-size:4.3vmin;
 }
 .block-upgrade:active, .pickaxe-upgrade:active, .dimension:active{
     background-color: rgb(74, 128, 74);
@@ -130,7 +158,6 @@ body{
     justify-content: space-around;
 }
 .enchant-title{
-    font-family: sans-serif;
     text-align: center;
     margin: 1vmin;
     position: absolute;
@@ -179,4 +206,33 @@ body{
     background-color: white;
     font-size:2vmin;
     color:black;
+}
+@keyframes titleShake{
+    from{
+        transform: translate(0px) rotateZ(0deg);
+    }
+    14%{
+        transform: translate(-10px) rotateZ(-2deg);
+    }
+    28%{
+        transform: translate(0px) rotateZ(0deg);
+    }
+    42%{
+        transform: translate(10px) rotateZ(2deg);
+    }
+    56%{
+        transform: translate(0px) rotateZ(0deg);
+    }
+    70%{
+        transform: translate(-5px) rotateZ(-1deg);
+    }
+    84%{
+        transform: translate(0px) rotateZ(0deg);
+    }
+    98%{
+        transform: translate(5px) rotateZ(1deg);
+    }
+    to{
+        transform: translate(0px) rotateZ(0deg);
+    }
 }

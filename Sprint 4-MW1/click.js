@@ -15,7 +15,7 @@ let blockAmountLabel = document.querySelector(".blocks");
 let pickaxe = document.querySelector(".pickaxe");
 const blockUpgradeButton = document.querySelector(".block-upgrade");
 
-let blockAmount = 9999990;
+let blockAmount = 0;
 let blockUpgradeCost = 20;
 let blockUpgradeCounter = 0;
 let multipliers = {
@@ -255,14 +255,16 @@ villagerArray.forEach(villager => {
         if(villager.cost === "Max Level"){
             return;
         }
-        //check for money here
-        startAutoclicker(villager.name,aDuration);
-        blockAmount = blockAmount - villager.cost;
-        blockAmountLabel.innerHTML = "Blocks: " + blockAmount;
-        villager.level++;
-        let update = villagerLevelList[villager.id];
-        villager.cost = update[villager.level];
-        textBox.innerHTML = `${villager.name} upgrade: ${villager.cost}`;
+        if(blockAmount>=villager.cost){
+            startAutoclicker(villager.name,aDuration);
+            blockAmount = blockAmount - villager.cost;
+            blockAmountLabel.innerHTML = "Blocks: " + blockAmount;
+            villager.level++;
+            let update = villagerLevelList[villager.id];
+            villager.cost = update[villager.level];
+            textBox.innerHTML = `${villager.name} upgrade: ${villager.cost}`;
+        }
+        
     });
 });
 
