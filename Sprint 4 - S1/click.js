@@ -9,6 +9,10 @@ const grid3 = document.querySelector(".grid-3");
 const decorationStand = document.querySelector(".stand1");
 const decorIMG = document.querySelector(".decor-img");
 
+let spinnerSound = new Audio("./spinner.mp3");
+let backgroundMusic = new Audio("./backgroundMusic.mp3");
+backgroundMusic.loop=true;
+let playing = false;
 
 let prices = {
     snackPrice: 100,
@@ -22,6 +26,10 @@ let clickAmount = 1;
 let coins = 1000;
 
 presents.addEventListener("click",()=>{
+    if(playing===false){
+        backgroundMusic.play();
+        playing = true;
+    }
     coins = coins + clickAmount;
     coinLabel.innerHTML = "Chameleon Coins: " + coins;
 });
@@ -122,22 +130,27 @@ const spinner = document.querySelector(".spinner");
 spinner.style.transition = "5s ease";
 
 spinner.addEventListener("click",()=>{
+    spinnerSound.play();
+    backgroundMusic.volume = .5;
     let result = Math.round(Math.random()*360); //random 0deg - 360deg
     let spinDegrees = result + 3000; 
     spinner.style.transform = "rotateZ(" + spinDegrees + "deg)";
     setTimeout(() => {
         spinner.style.transition = "0s";
         getReward(result);
-        spinner.style.visibility = "hidden";    
+        spinner.style.visibility = "hidden";
+        spinnerSound.pause();
+        backgroundMusic.volume = 1;  
     }, 5000);
     setTimeout(() => {
-        spinner.style.transform = "rotateZ(0deg)";  
+        spinner.style.transform = "rotateZ(0deg)";
     }, 8000);
     setTimeout(() => {
-        spinner.style.transition = "5s ease"; 
+        spinner.style.transition = "5s ease";
     }, 10000);
     setTimeout(() => {
-        spinner.style.visibility = "visible";  
+        spinner.style.visibility = "visible";
+        spinnerSound.currentTime = 0;
     }, 30000);
 });
 
