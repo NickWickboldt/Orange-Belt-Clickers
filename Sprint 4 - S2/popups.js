@@ -1,3 +1,4 @@
+import { currentTotem,clickAmount,currentNick,aDuration } from "./click.js";
 const totemsGUI  = document.querySelector(".totem-popup");
 const upgradesGUI  = document.querySelector(".upgrades-popup");
 const shopGUI  = document.querySelector(".shop-popup");
@@ -15,9 +16,21 @@ buttonArray.forEach(button => {
     button.addEventListener("click",()=>{
         if(button === totemButton){
             totemsGUI.style.visibility = "visible";
+            const totemText = document.createElement("p");
+            totemText.innerHTML = "Totem Level: " + currentTotem;
+            totemText.classList.add("level-text");
+            totemsGUI.appendChild(totemText);
         }
         if(button === upgradesButton){
             upgradesGUI.style.visibility = "visible";
+            const nickText = document.createElement("p");
+            const speedText = document.createElement("p");
+            nickText.innerHTML = "Nick Level: " + currentNick;
+            speedText.innerHTML = "Current Speed: " + Math.round(aDuration);
+            nickText.classList.add("level-text");
+            speedText.classList.add("level-text");
+            upgradesGUI.appendChild(nickText);
+            upgradesGUI.appendChild(speedText);
         }
         if(button === shopButton){
             shopGUI.style.visibility = "visible";
