@@ -16,21 +16,12 @@ buttonArray.forEach(button => {
     button.addEventListener("click",()=>{
         if(button === totemButton){
             totemsGUI.style.visibility = "visible";
-            const totemText = document.createElement("p");
             totemText.innerHTML = "Totem Level: " + currentTotem;
-            totemText.classList.add("level-text");
-            totemsGUI.appendChild(totemText);
         }
         if(button === upgradesButton){
             upgradesGUI.style.visibility = "visible";
-            const nickText = document.createElement("p");
-            const speedText = document.createElement("p");
             nickText.innerHTML = "Nick Level: " + currentNick;
             speedText.innerHTML = "Current Speed: " + Math.round(aDuration);
-            nickText.classList.add("level-text");
-            speedText.classList.add("level-text");
-            upgradesGUI.appendChild(nickText);
-            upgradesGUI.appendChild(speedText);
         }
         if(button === shopButton){
             shopGUI.style.visibility = "visible";
@@ -43,3 +34,16 @@ XArray.forEach(X => {
         X.parentElement.style.visibility = "hidden";
     });
 });
+
+const totemText = document.createElement("p");
+
+totemText.classList.add("level-text");
+totemsGUI.appendChild(totemText);
+
+const nickText = document.createElement("p");
+const speedText = document.createElement("p");
+
+nickText.classList.add("level-text");
+speedText.classList.add("level-text");
+upgradesGUI.appendChild(nickText);
+upgradesGUI.appendChild(speedText);

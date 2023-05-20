@@ -3,10 +3,14 @@ const nick = document.querySelector(".nick");
 const berryLabel = document.querySelector(".berries");
 const autoClickerButton = document.querySelector(".auto-upgrade");
 const powerUpBox = document.querySelector(".powerup-box");
+const SPS = document.querySelector(".sps");
 
-let strawberries = 1000;
-let clickAmount = 1;
-let currentTotem = 0;
+let strawberries = 0;
+export let clickAmount = 1;
+export let currentTotem = 0;
+export let aDuration = 1000;
+export let currentNick = 0;
+let aID;
 
 export let powerUps = {
     x2: false,
@@ -32,14 +36,15 @@ autoClickerButton.addEventListener("click",()=>{
         strawberries-=autoClickerPrice;
         berryLabel.innerHTML = "Strawberries: " + strawberries;
         autoClickerActivate();
+        SPS.innerHTML = "SPS: " + Math.round(clickAmount/(aDuration/1000));
     }
 });
 
 function autoClickerActivate(){
-    setInterval(() => {
-        strawberries++;
+    aID = setInterval(() => {
+        strawberries+= clickAmount;
         berryLabel.innerHTML = "Strawberries: " + strawberries;
-    }, 1000);
+    }, aDuration);
 }
 
 autoClickerButton.addEventListener("mouseover",()=>{
@@ -104,6 +109,7 @@ buyNick.addEventListener("click",()=>{
         berryLabel.innerHTML = "Strawberries: " + strawberries;
         upgradePrices.nick = upgradePrices.nick * upgradePrices.nickM;
         clickAmount = clickAmount * upgradePrices.nickM;
+        currentNick++;
     }
 });
 
@@ -113,6 +119,10 @@ buySpeed.addEventListener("click",()=>{
         berryLabel.innerHTML = "Strawberries: " + strawberries;
         upgradePrices.speed = upgradePrices.speed * upgradePrices.speedM;
         clickAmount = clickAmount * upgradePrices.speedM;
+        aDuration = aDuration * .9;
+        clearInterval(aID);
+        autoClickerActivate();
+        SPS.innerHTML = "SPS: " + Math.round(clickAmount/(aDuration/1000));
     }
 });
 
