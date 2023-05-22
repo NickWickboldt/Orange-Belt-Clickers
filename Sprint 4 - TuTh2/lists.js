@@ -1,37 +1,70 @@
+let stinkWeed, blowFlower, toxicShrooms, zucchini, purpleStalk, quantumOnions, triStemmedCarrots, greenGlobLeaf, greenTree;
+let inorganic, oiled, bioOrganic, chemicallyEnriched;
 export let cropArray = [  //import in other file
-    "./images/stinkweed.jpg",
-    "./images/blowflower.png",
-    "./images/toxicshrooms.png",
-    "./images/zucchini.png",
-    "./images/purplestalk.png",
-    "./images/quantumonions.png",
-    "./images/tristemmedcarrots.png",
-    "./images/greenglobleaf.png",
-    "./images/greentree.png"
+    stinkWeed = {
+        img: "./images/stinkweed.jpg",
+        price: 0,
+        id:0
+    },
+    blowFlower = {
+        img: "./images/blowflower.png",
+        price: 50,
+        id:1
+    },
+    toxicShrooms = {
+        img: "./images/toxicshrooms.png",
+        price: 500,
+        id:2
+    },
+    zucchini = {
+        img: "./images/zucchini.png",
+        price: 2500,
+        id:3
+    },
+    purpleStalk = {
+        img: "./images/purplestalk.png",
+        price: 7500,
+        id:4
+    },
+    quantumOnions = {
+        img: "./images/quantumonions.png",
+        price: 10000,
+        id:5
+    },
+    triStemmedCarrots = {
+        img: "./images/tristemmedcarrots.png",
+        price: 25000,
+        id:6
+    },
+    greenGlobLeaf = {
+        img: "./images/greenglobleaf.png",
+        price: 100000,
+        id:7
+    },
+    greenTree = {
+        img: "./images/greentree.png",
+        price: 1000000000,
+        id:8
+    }
 ]; 
 export let soilArray = [
-    "darkgrey",
-    "black",
-    "darkgreen",
-    "greenyellow"
+    inorganic = {
+        color: "darkgrey",
+        price: 0
+    },
+    oiled = {
+        color: "black",
+        price: 250
+    },
+    bioOrganic = {
+        color: "darkgreen",
+        price: 50000
+    },
+    chemicallyEnriched = {
+        color: "greenyellow",
+        price: 100000
+    }
 ];
-
-export let prices = {
-    inorganic: 0,
-    oiled: 250,
-    bioOrganic: 50000,
-    chemicallyEnriched: 1000000,
-    stinkweed: 0,
-    blowflower: 50,
-    toxicShrooms: 500, 
-    zucchini: 2500,
-    purpleStalk: 7500, 
-    quantumOnions: 10000,
-    triStemmedCarrots: 25000, 
-    greenGlobLeaf: 1000000,
-    greenTree: 1000000000
-}
-
 export let recipes = {
     stinkweedStew: {
         stinkweed: 10,
@@ -135,26 +168,26 @@ export let cropStorage = [
     0, //green tree
 ]
 
-const stinkweed = document.getElementById("stinkweed");
-const blowflower = document.getElementById("blowflower");
-const toxicShrooms = document.getElementById("toxicshrooms");
-const zucchini = document.getElementById("zucchini");
-const purpleStalk = document.getElementById("purplestalk");
-const quantumOnions = document.getElementById("quantumonions");
-const triStemmedCarrots = document.getElementById("tristemmedcarrots");
-const greenGlobLeaf = document.getElementById("greenglobleaf");
-const greenTree = document.getElementById("greentree");
+const stinkweedLI = document.getElementById("stinkweed");
+const blowflowerLI = document.getElementById("blowflower");
+const toxicShroomsLI = document.getElementById("toxicshrooms");
+const zucchiniLI = document.getElementById("zucchini");
+const purpleStalkLI = document.getElementById("purplestalk");
+const quantumOnionsLI = document.getElementById("quantumonions");
+const triStemmedCarrotsLI = document.getElementById("tristemmedcarrots");
+const greenGlobLeafLI = document.getElementById("greenglobleaf");
+const greenTreeLI = document.getElementById("greentree");
 
 export let cropStorageLabels = [    //list of <li> tags displaying amount of crop
-    stinkweed,
-    blowflower,
-    toxicShrooms,
-    zucchini,
-    purpleStalk,
-    quantumOnions,
-    triStemmedCarrots,
-    greenGlobLeaf,
-    greenTree
+    stinkweedLI,
+    blowflowerLI,
+    toxicShroomsLI,
+    zucchiniLI,
+    purpleStalkLI,
+    quantumOnionsLI,
+    triStemmedCarrotsLI,
+    greenGlobLeafLI,
+    greenTreeLI
 ];
 
 export let recipeImageList = [

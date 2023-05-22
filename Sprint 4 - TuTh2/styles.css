@@ -73,6 +73,7 @@ a{
     grid-template-rows: 1fr 1fr 1fr;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     margin: auto 0;
+    grid-gap:1vmin;
     width:60%;
     height:45%;
     border:none;
@@ -328,4 +329,15 @@ a{
     top:2vmin;
     right:40%;
 
+}
+.price-text{
+    position: absolute;
+    background-color: lightgrey;
+    border: solid black 1px;
+}
+.sell-text{
+    position: absolute;
+    background-color: lightgrey;
+    color:red;
+    border: solid black 1px;
 }

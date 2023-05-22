@@ -11,6 +11,7 @@ const plot9 = document.getElementById("crop9");
 const plot10 = document.getElementById("crop10");
 const plot11 = document.getElementById("crop11");
 const plot12 = document.getElementById("crop12");
+const farmland = document.querySelector(".farmland");
 const monsterCoinsLabel = document.querySelector(".monster-coins");
 let monsterCoins = window.sessionStorage.getItem("monster_coins");
 monsterCoinsLabel.innerHTML = "Monster Coins: " + monsterCoins;
@@ -24,39 +25,62 @@ let plotList = [plot1, plot2, plot3, plot4, plot5,
 let intervalIDList = []; //used to clear crops
 
 gameLoop(0);
-gameLoop(1);
-gameLoop(2);
-gameLoop(3);
-gameLoop(4);
-gameLoop(5);
-gameLoop(6);
-gameLoop(7);
-gameLoop(8);
+
 function gameLoop(cropID){
     let plotNumber = plotCounter;
-    intervalIDList.push(setInterval(() => { //growth interval
-        createCrop(plotList[plotNumber], cropID); // 0->cropID
+    let intervalID = setInterval(() => { //growth interval
+        createCrop(plotList[plotNumber], cropID,intervalID); // 0->cropID
         cropStorage[cropID]++;
         cropStorageLabels[cropID].innerHTML = cropStorage[cropID];
         console.log(cropStorage);
-    }, 5500));
+    }, 5500);
     plotCounter++;
 }
 
-function createCrop(plot, imgIndex){ //one iteration of growth
+function createCrop(plot, imgIndex,intervalNumber){ //one iteration of growth
     const crop = document.createElement("img");
-    crop.src =  cropArray[imgIndex];
+    crop.src =  cropArray[imgIndex].img;
     crop.classList.add("crop");
     plot.appendChild(crop);
-    setTimeout(() => {
-        grow(crop,plot);
-    }, 50); 
+    const sellText = document.createElement("p");
+    sellText.classList.add("sell-text");
+    plot.addEventListener("mouseover",(e)=>{
+        if(plot.hasChildNodes()){
+            plot.style.border = "solid red 2px";
+            sellText.innerHTML = "Destroy?";
+            sellText.style.top = e.pageY - 50 + 'px';
+            sellText.style.left = e.pageX + 'px';
+            farmland.appendChild(sellText);
+        }
+        
+    });
+    plot.addEventListener("mouseleave",()=>{
+        if(plot.hasChildNodes()){
+            plot.style.border = "none";
+            farmland.removeChild(sellText);
+        }
+    });
+    plot.addEventListener("click",()=>{
+        if(plot.hasChildNodes()){
+            plot.style.border = "none";
+            clearInterval(intervalNumber);
+            intervalNumber = null;
+            plotCounter--;
+        }
+    });
+    if(!(intervalNumber===null)){
+        setTimeout(() => {
+            grow(crop,plot);
+        }, 50); 
+    }
 }
 
 function grow(crop,plot){
     crop.style.transform = "scale(2000%)";
     setTimeout(() => {
-        plot.removeChild(crop);
+        if(plot.hasChildNodes()){
+            plot.removeChild(crop);
+        }
         //play harvest noise
     }, 5550);
 }
@@ -85,16 +109,49 @@ soilShopX.addEventListener("click",()=>{
 
 cropArray.forEach(crop => {
     const cropIMG = document.createElement("img");
-    cropIMG.src = crop;
+    cropIMG.src = crop.img;
     cropIMG.classList.add("shop-item");
     cropShop.appendChild(cropIMG);
+    const priceText = document.createElement("p");
+    priceText.classList.add("price-text");
+    cropIMG.addEventListener("mouseover",(e)=>{
+        cropIMG.style.border = "solid darkslategray 2px";
+        priceText.innerHTML = "Monster Coins: " + crop.price;
+        priceText.style.top = e.pageY - 200 + 'px';
+        priceText.style.left = e.pageX - 300 + 'px';
+        cropShop.appendChild(priceText);
+    });
+    cropIMG.addEventListener("mouseleave",()=>{
+        cropIMG.style.border = "solid darkslategray 1px";
+        cropShop.removeChild(priceText);
+    });
+    cropIMG.addEventListener("click",()=>{
+        if(monsterCoins>=crop.price){
+            monsterCoins-=crop.price;
+            monsterCoinsLabel.innerHTML = "Monster Coins: " + monsterCoins;
+            gameLoop(crop.id);
+        }
+    });
 });
 
 soilArray.forEach(soil => {
     const soilColor = document.createElement("div");
-    soilColor.style.backgroundColor = soil;
+    soilColor.style.backgroundColor = soil.color;
     soilColor.classList.add("shop-item");
     soilShop.appendChild(soilColor);
+    const priceText = document.createElement("p");
+    priceText.classList.add("price-text");
+    soilColor.addEventListener("mouseover",(e)=>{
+        soilColor.style.border = "solid darkslategray 2px";
+        priceText.innerHTML = "Monster Coins: " + soil.price;
+        priceText.style.top = e.pageY - 200 + 'px';
+        priceText.style.left = e.pageX - 300 + 'px';
+        soilShop.appendChild(priceText);
+    });
+    soilColor.addEventListener("mouseleave",()=>{
+        soilColor.style.border = "solid darkslategray 1px";
+        soilShop.removeChild(priceText);
+    });
 });
 
 let kitchenSourcedCrops= [];

@@ -25,6 +25,7 @@ function resetClickerOnThreshold(){
                 intoRecipeStorage(i);
             }
         }
+        ovenWindow.removeChild(ovenWindow.childNodes[3]);
         clickCounter = 0;
         cooking = false;
     }
@@ -128,7 +129,7 @@ for (const recipe in recipes) {
         ingPopUp.style.visibility = "visible";
         for(let i =0; i<ingList.length; i++){
             const listItem = document.createElement("li");
-            listItem.innerHTML = cropArray[i].substring(9,cropArray[i].length-4) + ": " + ingList[i];
+            listItem.innerHTML = cropArray[i].img.substring(9,cropArray[i].img.length-4) + ": " + ingList[i];
             tempList.push(listItem);
             ingPopUp.appendChild(listItem);
         }
