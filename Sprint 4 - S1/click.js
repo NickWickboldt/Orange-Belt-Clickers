@@ -10,7 +10,7 @@ const decorationStand = document.querySelector(".stand1");
 const decorIMG = document.querySelector(".decor-img");
 
 let spinnerSound = new Audio("./spinner.mp3");
-let backgroundMusic = new Audio("./backgroundMusic.mp3");
+let backgroundMusic = new Audio("./calvin.mp3");
 backgroundMusic.loop=true;
 let playing = false;
 
@@ -23,7 +23,7 @@ let prices = {
 let currentSnack = 0;
 let currentDecoration = 0;
 let clickAmount = 1;
-let coins = 1000;
+let coins = 0;
 
 presents.addEventListener("click",()=>{
     if(playing===false){
