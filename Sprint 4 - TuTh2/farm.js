@@ -227,8 +227,19 @@ kitchenButton.addEventListener("click",()=>{
     for(let i = 0; i<cropStorage.length; i++){
         cropSender.push(cropStorage[i]);
     }
+    window.sessionStorage.setItem("monster_coins",monsterCoins);
     window.sessionStorage.setItem("crop_storage",cropSender);
     window.location.href = "./index.html";
+});
+const battlefieldButton = document.querySelector(".battlefield-link");
+battlefieldButton.addEventListener("click",()=>{
+    let cropSender = [];
+    for(let i = 0; i<cropStorage.length; i++){
+        cropSender.push(cropStorage[i]);
+    }
+    window.sessionStorage.setItem("monster_coins",monsterCoins);
+    window.sessionStorage.setItem("crop_storage",cropSender);
+    window.location.href = "./battlefield.html";
 });
 
 function updatePlotCounter(){

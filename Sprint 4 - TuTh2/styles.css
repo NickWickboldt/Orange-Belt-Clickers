@@ -180,14 +180,13 @@ a{
     border-bottom: solid darkslategrey 1px;
 }
 .crop-storage-crops, .recipe-storage-crops{
-    font-size:3vmin;
+    font-size:1.7vmin;
     list-style-type: none;
     text-align: center;
     padding:2vmin;
 }
 .storage-crop, .recipe-label{
     padding:.2vmin;
-    font-size:2vmin;
 }
 .recipes{
     position: absolute;
@@ -339,4 +338,17 @@ a{
     background-color: lightgrey;
     color:red;
     border: solid black 1px;
+}
+
+.feed-button{
+    padding:.5vmin;
+    margin: .2vmin;
+    background-color: rgb(143, 70, 70);
+    border:solid grey 1px;
+    transition: .3s ease;
+}
+.feed-button:hover{
+    cursor:pointer;
+    background-color: rgb(143, 88, 88);
+    border:solid 1px black;
 }
