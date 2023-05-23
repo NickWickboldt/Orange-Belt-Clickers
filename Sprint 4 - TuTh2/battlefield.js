@@ -3,6 +3,8 @@ import { recipeStorageLabels} from "./lists.js";
 let kitchenSourcedRecipes= [];
 let tempC = [];
 let monsterCoins = 0;
+let killTime = 5000;
+let buffRemainingTime = 0;
 const monsterCoinsLabel = document.querySelector(".monster-coins");
 
 window.addEventListener("load",()=>{
@@ -38,6 +40,8 @@ kitchenButton.addEventListener("click",()=>{
     let recipeSender = tempC;
     window.sessionStorage.setItem("recipe_storage",recipeSender); //send sender
     window.sessionStorage.setItem("monster_coins",monsterCoins);
+    window.sessionStorage.setItem("kill_time",killTime);
+    window.sessionStorage.setItem("buff_remaining_time",buffRemainingTime);
     window.location.href = "./index.html";
 });
 const farmButton = document.querySelector(".farm-link");
@@ -45,9 +49,11 @@ farmButton.addEventListener("click",()=>{
     let recipeSender = tempC;
     window.sessionStorage.setItem("recipe_storage",recipeSender); //send sender
     window.sessionStorage.setItem("monster_coins",monsterCoins);
+    window.sessionStorage.setItem("kill_time",killTime);
+    window.sessionStorage.setItem("buff_remaining_time",buffRemainingTime);
     window.location.href = "./farm.html";
 });
-let killTime = 5000;
+
 function startSlaughter(){
     setInterval(() => {
         monsterCoins++;

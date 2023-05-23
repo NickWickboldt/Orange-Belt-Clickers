@@ -191,7 +191,14 @@ export let cropStorageLabels = [    //list of <li> tags displaying amount of cro
 ];
 
 export let recipeImageList = [
-
+    "./images/stinkweedStew.png",
+    "./images/blowflowerBread.png",
+    "./images/zucchiniRamen.png",
+    "./images/toxicPizza.png",
+    "./images/quantumStew.png",
+    "./images/quantumBurrito.png",
+    "./images/greenTreeSmoothie.png",
+    "./images/superSalad.png"
 ];
 
 const stinkWeedStew = document.getElementById("stinkweedStew");

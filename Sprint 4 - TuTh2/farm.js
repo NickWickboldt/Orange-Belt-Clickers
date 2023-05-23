@@ -11,33 +11,44 @@ const plot9 = document.getElementById("crop9");
 const plot10 = document.getElementById("crop10");
 const plot11 = document.getElementById("crop11");
 const plot12 = document.getElementById("crop12");
-const farmland = document.querySelector(".farmland");
 const monsterCoinsLabel = document.querySelector(".monster-coins");
 let monsterCoins = window.sessionStorage.getItem("monster_coins");
 monsterCoinsLabel.innerHTML = "Monster Coins: " + monsterCoins;
 
+let growTime = 5500;
 let plotCounter = 0;    //maintains current plot to plant at
 let plotList = [plot1, plot2, plot3, plot4, plot5, 
                 plot6, plot7, plot8, plot9, plot10, 
                 plot11, plot12];
-
-
-let intervalIDList = []; //used to clear crops
-
-gameLoop(0);
+let activePlotList = [false,false,false,false,false,false,false,false,false,false,false,false];
+let intervalResetList = [];
+let gameloopList = [];
 
 function gameLoop(cropID){
-    let plotNumber = plotCounter;
-    let intervalID = setInterval(() => { //growth interval
-        createCrop(plotList[plotNumber], cropID,intervalID); // 0->cropID
+    gameloopList.push(cropID);
+    let tempBool = true;
+    let tempIterator = 0;
+    let plotNumber = 0;
+    let intervalID;
+    while(tempBool){ //finding earliest open plot
+        if(activePlotList[tempIterator]){
+            tempIterator++;
+        }else{
+            tempBool=false;
+            plotNumber = tempIterator;
+        }
+    }
+    activePlotList[plotNumber] = true;
+    updatePlotCounter();     
+    intervalID = setInterval(() => { //growth interval
+        createCrop(plotList[plotNumber], cropID,intervalID, plotNumber); // 0->cropID
         cropStorage[cropID]++;
         cropStorageLabels[cropID].innerHTML = cropStorage[cropID];
-        console.log(cropStorage);
-    }, 5500);
-    plotCounter++;
+    }, growTime);
+    intervalResetList.push(intervalID);
 }
 
-function createCrop(plot, imgIndex,intervalNumber){ //one iteration of growth
+function createCrop(plot, imgIndex,intervalNumber, plotNum){ //one iteration of growth
     const crop = document.createElement("img");
     crop.src =  cropArray[imgIndex].img;
     crop.classList.add("crop");
@@ -50,14 +61,18 @@ function createCrop(plot, imgIndex,intervalNumber){ //one iteration of growth
             sellText.innerHTML = "Destroy?";
             sellText.style.top = e.pageY - 50 + 'px';
             sellText.style.left = e.pageX + 'px';
-            farmland.appendChild(sellText);
+            plot.appendChild(sellText);
         }
         
     });
     plot.addEventListener("mouseleave",()=>{
         if(plot.hasChildNodes()){
             plot.style.border = "none";
-            farmland.removeChild(sellText);
+            for(let i =0; i<plot.childNodes.length; i++){
+                if(plot.childNodes[i].outerHTML.substring(0,2) === "<p"){
+                    plot.removeChild(plot.childNodes[i])
+                }
+            }
         }
     });
     plot.addEventListener("click",()=>{
@@ -65,8 +80,9 @@ function createCrop(plot, imgIndex,intervalNumber){ //one iteration of growth
             plot.style.border = "none";
             clearInterval(intervalNumber);
             intervalNumber = null;
-            plotCounter--;
+            activePlotList[plotNum] = false;
         }
+        updatePlotCounter();
     });
     if(!(intervalNumber===null)){
         setTimeout(() => {
@@ -82,7 +98,7 @@ function grow(crop,plot){
             plot.removeChild(crop);
         }
         //play harvest noise
-    }, 5550);
+    }, growTime + 50);
 }
 
 //pop-ups
@@ -126,7 +142,7 @@ cropArray.forEach(crop => {
         cropShop.removeChild(priceText);
     });
     cropIMG.addEventListener("click",()=>{
-        if(monsterCoins>=crop.price){
+        if(monsterCoins>=crop.price && plotCounter<12){
             monsterCoins-=crop.price;
             monsterCoinsLabel.innerHTML = "Monster Coins: " + monsterCoins;
             gameLoop(crop.id);
@@ -151,6 +167,31 @@ soilArray.forEach(soil => {
     soilColor.addEventListener("mouseleave",()=>{
         soilColor.style.border = "solid darkslategray 1px";
         soilShop.removeChild(priceText);
+    });
+    soilColor.addEventListener("click",()=>{
+        if(monsterCoins>=soil.price){
+            growTime-=1000;
+            monsterCoins-=soil.price;
+            monsterCoinsLabel.innerHTML = "Monster Coins: " + monsterCoins;
+            activePlotList = [false,false,false,false,false,false,false,false,false,false,false,false];
+            plotList.forEach(plot => {
+                plot.style.backgroundColor = soil.color;
+            });
+            for(let i =0; i<intervalResetList.length; i++){ //clearing intervals
+                clearInterval(intervalResetList[i]);
+            }
+            intervalResetList = []; //reset
+            let tempGL = [];
+            for(let i =0; i<gameloopList.length; i++){ //creating copy
+                tempGL.push(gameloopList[i]);
+            }
+            gameloopList = []; //reset
+            for(let i = 0; i<tempGL.length; i++){ //restarting gameloops
+                gameLoop(tempGL[i]);
+            }
+            soilShop.removeChild(soilColor);
+            soilShop.removeChild(priceText);
+        }
     });
 });
 
@@ -189,3 +230,12 @@ kitchenButton.addEventListener("click",()=>{
     window.sessionStorage.setItem("crop_storage",cropSender);
     window.location.href = "./index.html";
 });
+
+function updatePlotCounter(){
+    plotCounter = 0;
+    for(let i =0; i<activePlotList.length; i++){
+        if(activePlotList[i]){
+            plotCounter++;
+        }
+    }
+}

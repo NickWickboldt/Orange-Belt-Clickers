@@ -1,4 +1,4 @@
-import { cropStorageLabels,recipes,recipeStorageLabels,cropArray} from "./lists.js";
+import { cropStorageLabels,recipes,recipeStorageLabels,cropArray,recipeImageList} from "./lists.js";
 const stove = document.querySelector(".stove");
 const ovenWindow = document.querySelector(".oven-window");
 
@@ -19,7 +19,7 @@ function resetClickerOnThreshold(){
     if(clickCounter===threshold.initial){   //if threshold, reset
         let i;
         let child = ovenWindow.childNodes[3];
-        child = child.outerHTML.substring(10,child.outerHTML.length-25);
+        child = child.outerHTML.substring(19,child.outerHTML.length-29);
         for(i =0; i<recipeStorageLabels.length; i++){
             if(child===recipeStorageLabels[i].outerHTML.substring(8,recipeStorageLabels[i].outerHTML.length-8)){
                 intoRecipeStorage(i);
@@ -117,10 +117,16 @@ recipeX.addEventListener("click",()=>{
 for (const recipe in recipes) {
     const recipeIMG = document.createElement("img");
     const ingPopUp = document.createElement("ul");
+    for(let i =0; i<recipeImageList.length; i++){
+        if(recipeImageList[i].substring(9,recipeImageList[i].length-4) === recipe){
+            recipeIMG.src = recipeImageList[i];
+        }
+    }
     ingPopUp.classList.add("ing-popup");
     document.body.appendChild(ingPopUp);
     let tempList = [];
     recipeIMG.addEventListener("mouseover",(e)=>{
+        recipeIMG.style.border = "solid black 1px";
         let item = recipeIMG.outerHTML;
         let itemToSend = item.substring(10,item.length-2);
         let ingList = getIngredients(itemToSend);
@@ -135,6 +141,7 @@ for (const recipe in recipes) {
         }
     });
     recipeIMG.addEventListener("mouseleave",()=>{
+        recipeIMG.style.border = "none";
         tempList.forEach(child => {
             ingPopUp.removeChild(child);
         });
@@ -142,17 +149,19 @@ for (const recipe in recipes) {
         ingPopUp.style.visibility = "hidden";
     });
     recipeIMG.addEventListener("click",()=>{
-        let item = recipeIMG.outerHTML;
-        let itemToSend = item.substring(10,item.length-2);
-        let ingList = getIngredients(itemToSend);
-        let canPurchase = testBuy(ingList); // true/false if have enough 
-        if(canPurchase){
-            buyRecipe(recipeIMG,ingList);
-        }else{
-            console.log("Not enough crops!");
+        if(!cooking){
+            let item = recipeIMG.outerHTML;
+            let itemToSend = item.substring(10,item.length-2);
+            let ingList = getIngredients(itemToSend);
+            let canPurchase = testBuy(ingList); // true/false if have enough 
+            if(canPurchase){
+                buyRecipe(recipeIMG,ingList);
+            }else{
+                console.log("Not enough crops!");
+            }
         }
+        
     });
-    recipeIMG.alt = recipe;
     recipeGrid.appendChild(recipeIMG);
 }
 
@@ -162,6 +171,7 @@ function intoRecipeStorage(id){ //recipe - id
 }
 
 function getIngredients(recipeToMake){ //string recipe
+    recipeToMake = recipeToMake.substring(9, recipeToMake.length-37);
     let ingredientArray = [];
     for (const recipeTest in recipes) { //finding match
         if(recipeTest===recipeToMake){// if match
@@ -194,8 +204,7 @@ function buyRecipe(recipeName, ingredientList){
 
 function recipeIntoStove(name){
     const cookingIMG = document.createElement("img");
-    // cookingIMG.src = name.src;
-    cookingIMG.alt = name.alt;
+    cookingIMG.src = name.outerHTML.substring(10,name.outerHTML.length-35);
     cookingIMG.classList.add("cooking-recipe");
     ovenWindow.appendChild(cookingIMG);
     cooking = true;
