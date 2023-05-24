@@ -32,6 +32,7 @@
 .nick{
     width:300px;
     height:300px;
+    border:none;
 }
 .berries, .sps, .totems, .upgrades, .shop{
     height:40%;

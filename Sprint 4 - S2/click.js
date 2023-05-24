@@ -1,9 +1,10 @@
-import { buffList } from "./lists.js";
+import { buffList,nickList } from "./lists.js";
 const nick = document.querySelector(".nick");
 const berryLabel = document.querySelector(".berries");
 const autoClickerButton = document.querySelector(".auto-upgrade");
 const powerUpBox = document.querySelector(".powerup-box");
 const SPS = document.querySelector(".sps");
+
 
 let strawberries = 0;
 export let clickAmount = 1;
@@ -11,7 +12,7 @@ export let currentTotem = 0;
 export let aDuration = 1000;
 export let currentNick = 0;
 let aID;
-
+nick.src = nickList[currentNick];
 export let powerUps = {
     x2: false,
     x2Duration: 30000, //30 seconds
@@ -110,6 +111,7 @@ buyNick.addEventListener("click",()=>{
         upgradePrices.nick = upgradePrices.nick * upgradePrices.nickM;
         clickAmount = clickAmount * upgradePrices.nickM;
         currentNick++;
+        nick.src = nickList[currentNick];
     }
 });
 
