@@ -1,12 +1,20 @@
 @font-face {
     font-family: recipe;
-    src: url(./Jakarta\ stylish.otf);
+    src: url(./fonts/Jakarta\ stylish.otf);
+}
+@font-face{
+    font-family: future;
+    src: url(./fonts/future.otf);
+}
+@font-face {
+    font-family: label;
+    src: url(./fonts/label.ttf);
 }
 *{
     margin:0;
     padding:0;
     overflow:hidden;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: future;
 }
 .grid-1{
     display: grid;
@@ -46,7 +54,7 @@
 }
 .index-link, .battlefield-link, .farm-link{
     padding:2vmin;
-    font-size:3vmin;
+    font-size:1.8vmin;
     border:solid darkslategray 1px;
     background-color: aliceblue;
     color:grey;
@@ -103,7 +111,7 @@ a{
     border:solid darkslategray 1px;
     background-color: aliceblue;
     color:grey;
-    font-size:5vmin;
+    font-size:3vmin;
     transition: .3s ease;
 }
 .crop-button:hover, .soil-button:hover, .index-link:hover, .battlefield-link:hover, .farm-link:hover{
@@ -116,6 +124,7 @@ a{
     color:black;
     border:none;
     font-weight:normal;
+    font-size:5vmin;
 }
 .pop-up{
     visibility: hidden;
@@ -187,6 +196,11 @@ a{
 }
 .storage-crop, .recipe-label{
     padding:.2vmin;
+    font-family: label;
+    font-size:3vmin;
+}
+.recipe-label{
+    font-size:1.5vmin;
 }
 .recipes{
     position: absolute;
@@ -278,11 +292,13 @@ a{
     position: absolute;
     left:40%;
     top:30%;
+    width:30vmin;
 }
 .explosion2{
     position: absolute;
     left:70%;
     top:60%;
+    width:20vmin;
 }
 .bullets{
     position: absolute;
@@ -305,11 +321,12 @@ a{
     border-radius: 5%;
 }
 .ing-popup>li{
-    font-size:2vmin;
+    font-family: future;
+    font-size:1.8vmin;
     color:darkgrey;
     list-style-type: none;
     text-align: center;
-    padding:.1rem;
+    padding:.3rem;
 }
 .cooking-recipe{
     position: absolute;
@@ -326,7 +343,7 @@ a{
     position: absolute;
     top:2vmin;
     right:40%;
-
+    font-size:2.5vmin;
 }
 .price-text{
     position: absolute;
@@ -346,6 +363,7 @@ a{
     background-color: rgb(143, 70, 70);
     border:solid grey 1px;
     transition: .3s ease;
+    font-size:1.2vmin;
 }
 .feed-button:hover{
     cursor:pointer;

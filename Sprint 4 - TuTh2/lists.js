@@ -231,3 +231,44 @@ export let recipeStorage = [
     0, //green tree smoothie
     0, //super salad
 ]
+
+const stinkweedStewButton = document.getElementById("0");
+const blowFlowerBreadButton = document.getElementById("1");
+const toxicPizzaButton = document.getElementById("2");
+const quantumBurritoButton = document.getElementById("3");
+const quantumStewButton = document.getElementById("4");
+const zucchiniRamenButton = document.getElementById("5");
+const greenTreeSmoothieButton = document.getElementById("6");
+const superSaladButton = document.getElementById("7");
+export let buttonList = [
+    stinkweedStewButton, 
+    blowFlowerBreadButton,
+    toxicPizzaButton,
+    quantumBurritoButton,
+    quantumStewButton,
+    zucchiniRamenButton,
+    greenTreeSmoothieButton,
+    superSaladButton
+]
+
+export let buffList = [
+    10000,
+    15000,
+    20000,
+    23000,
+    25000,
+    30000,
+    45000,
+    60000
+]
+
+export let killTimeList = [
+    1000,
+    800,
+    650,
+    500,
+    350,
+    200,
+    120,
+    50
+]

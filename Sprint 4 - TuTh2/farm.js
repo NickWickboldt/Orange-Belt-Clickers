@@ -12,34 +12,35 @@ const plot10 = document.getElementById("crop10");
 const plot11 = document.getElementById("crop11");
 const plot12 = document.getElementById("crop12");
 const monsterCoinsLabel = document.querySelector(".monster-coins");
-let monsterCoins = window.sessionStorage.getItem("monster_coins");
+let monsterCoins = 0;
 monsterCoinsLabel.innerHTML = "Monster Coins: " + monsterCoins;
+let pop = new Audio("./sounds/pop.mp3");
 
 let growTime = 5500;
 let plotCounter = 0;    //maintains current plot to plant at
 let plotList = [plot1, plot2, plot3, plot4, plot5, 
                 plot6, plot7, plot8, plot9, plot10, 
                 plot11, plot12];
-let activePlotList = [false,false,false,false,false,false,false,false,false,false,false,false];
+let activePlotList = [];
 let intervalResetList = [];
 let gameloopList = [];
 
 function gameLoop(cropID){
+    // console.log(activePlotList)
     gameloopList.push(cropID);
     let tempBool = true;
-    let tempIterator = 0;
+    let i =0;
     let plotNumber = 0;
     let intervalID;
-    while(tempBool){ //finding earliest open plot
-        if(activePlotList[tempIterator]){
-            tempIterator++;
+    while(tempBool){
+        if(!activePlotList[i]){
+            plotNumber = i;
+            tempBool = !tempBool;
         }else{
-            tempBool=false;
-            plotNumber = tempIterator;
+            i++;
         }
     }
-    activePlotList[plotNumber] = true;
-    updatePlotCounter();     
+    activePlotList[i] = !activePlotList[i];
     intervalID = setInterval(() => { //growth interval
         createCrop(plotList[plotNumber], cropID,intervalID, plotNumber); // 0->cropID
         cropStorage[cropID]++;
@@ -75,6 +76,7 @@ function createCrop(plot, imgIndex,intervalNumber, plotNum){ //one iteration of 
             }
         }
     });
+    
     plot.addEventListener("click",()=>{
         if(plot.hasChildNodes()){
             plot.style.border = "none";
@@ -84,7 +86,9 @@ function createCrop(plot, imgIndex,intervalNumber, plotNum){ //one iteration of 
         }
         updatePlotCounter();
     });
+
     if(!(intervalNumber===null)){
+        
         setTimeout(() => {
             grow(crop,plot);
         }, 50); 
@@ -97,7 +101,7 @@ function grow(crop,plot){
         if(plot.hasChildNodes()){
             plot.removeChild(crop);
         }
-        //play harvest noise
+        pop.play();
     }, growTime + 50);
 }
 
@@ -108,18 +112,23 @@ const cropShopX = document.querySelector(".x-out-crop-shop");
 const soilShopX = document.querySelector(".x-out-soil-shop");
 const cropShopButton = document.querySelector(".crop-button");
 const soilShopButton = document.querySelector(".soil-button");
+let openSound = new Audio("./sounds/open.mp3");
 
 cropShopButton.addEventListener("click",()=>{
+    openSound.play();
     cropShop.style.visibility = "visible";
 });
 cropShopX.addEventListener("click",()=>{
+    openSound.play();
     cropShop.style.visibility = "hidden";
 });
 
 soilShopButton.addEventListener("click",()=>{
+    openSound.play();
     soilShop.style.visibility = "visible";
 });
 soilShopX.addEventListener("click",()=>{
+    openSound.play();
     soilShop.style.visibility = "hidden";
 });
 
@@ -143,6 +152,7 @@ cropArray.forEach(crop => {
     });
     cropIMG.addEventListener("click",()=>{
         if(monsterCoins>=crop.price && plotCounter<12){
+            openSound.play();
             monsterCoins-=crop.price;
             monsterCoinsLabel.innerHTML = "Monster Coins: " + monsterCoins;
             gameLoop(crop.id);
@@ -170,6 +180,7 @@ soilArray.forEach(soil => {
     });
     soilColor.addEventListener("click",()=>{
         if(monsterCoins>=soil.price){
+            openSound.play();
             growTime-=1000;
             monsterCoins-=soil.price;
             monsterCoinsLabel.innerHTML = "Monster Coins: " + monsterCoins;
@@ -197,8 +208,18 @@ soilArray.forEach(soil => {
 
 let kitchenSourcedCrops= [];
 let tempA = [];
+let buffRemainingTime = 0;
+let killTime = 0;
+let slaughterID;
+
 window.addEventListener("load",()=>{
     kitchenSourcedCrops = window.sessionStorage.getItem("crop_storage");
+    if(window.sessionStorage.getItem("monster_coins")===null){
+        monsterCoins = 0;
+    }else{
+        monsterCoins = parseInt(window.sessionStorage.getItem("monster_coins"));
+        monsterCoinsLabel.innerHTML = "Monster Coins: " + monsterCoins;
+    }
     if(kitchenSourcedCrops === ''){
         for(let i =0; i<9; i++){
             cropStorageLabels[i].innerHTML = 0;
@@ -219,7 +240,66 @@ window.addEventListener("load",()=>{
             cropStorageLabels[i].innerHTML = tempA[i];
         }
     }
-    console.log(kitchenSourcedCrops);
+    let tempPL;
+    let tempAC = [];
+    let indexList = [];
+    
+    if(window.sessionStorage.getItem("active_plots")===null){
+        activePlotList = [false,false,false,false,false,false,false,false,false,false,false,false];
+    }else{
+        tempPL = window.sessionStorage.getItem("active_plots");
+        let tempP = '';
+        for(let i =0; i<tempPL.length; i++){
+            if(tempPL[i] === ','){
+                activePlotList.push(!(tempP === 'true'));
+                tempP = '';
+            }else{
+                tempP += tempPL[i];
+            }
+        }activePlotList.push(!(tempP === 'true'));
+        for(let i = activePlotList.length; i<12; i++){
+            activePlotList.push(false);
+        }
+        for(let i =0; i<activePlotList.length; i++){
+            if(!activePlotList[i]){
+                indexList.push(i);
+            }
+        }
+    }
+    if(!(window.sessionStorage.getItem("active_crops") === null)){
+        tempAC = window.sessionStorage.getItem("active_crops");
+        let tempG = '';
+        for(let i =0; i<tempAC.length; i++){
+            if(tempAC[i] === ','){
+                plantOnPlot(tempG);
+                tempG = '';
+            }else{
+                tempG += tempAC[i];
+            }
+        }plantOnPlot(tempG);
+        for(let i =0; i<indexList.length; i++){
+            activePlotList[indexList[i]] = !activePlotList[indexList[i]];
+        }
+        for(let i =0; i<activePlotList.length; i++){
+            activePlotList[i] = !activePlotList[i];
+        }
+    }
+    updatePlotCounter();
+    buffRemainingTime = parseInt(window.sessionStorage.getItem("buff_remaining_time"));
+    if(isNaN(buffRemainingTime)){
+        buffRemainingTime = 0;
+    }
+    killTime = parseInt(window.sessionStorage.getItem("kill_time"));
+    if(isNaN(killTime)){
+        killTime=5000;
+    }
+    if(buffRemainingTime>0){
+        buffTime();
+        startSlaughter();
+    }else{
+        startSlaughter();
+    }
+    
 });
 const kitchenButton = document.querySelector(".index-link");
 kitchenButton.addEventListener("click",()=>{
@@ -227,8 +307,14 @@ kitchenButton.addEventListener("click",()=>{
     for(let i = 0; i<cropStorage.length; i++){
         cropSender.push(cropStorage[i]);
     }
+    window.sessionStorage.setItem("active_plots",activePlotList);
+    let senderPlots = getPlotData();
+    window.sessionStorage.setItem("active_crops",senderPlots);
     window.sessionStorage.setItem("monster_coins",monsterCoins);
     window.sessionStorage.setItem("crop_storage",cropSender);
+    window.sessionStorage.setItem("growth_time",growTime);
+    window.sessionStorage.setItem("buff_remaining_time", buffRemainingTime);
+    window.sessionStorage.setItem("kill_time",killTime);
     window.location.href = "./index.html";
 });
 const battlefieldButton = document.querySelector(".battlefield-link");
@@ -238,15 +324,69 @@ battlefieldButton.addEventListener("click",()=>{
         cropSender.push(cropStorage[i]);
     }
     window.sessionStorage.setItem("monster_coins",monsterCoins);
+    window.sessionStorage.setItem("active_plots",activePlotList);
+    let senderPlots = getPlotData();
+    window.sessionStorage.setItem("active_crops",senderPlots);
     window.sessionStorage.setItem("crop_storage",cropSender);
+    window.sessionStorage.setItem("growth_time",growTime);
+    window.sessionStorage.setItem("buff_remaining_time", buffRemainingTime);
+    window.sessionStorage.setItem("kill_time",killTime);
     window.location.href = "./battlefield.html";
 });
 
 function updatePlotCounter(){
+    if(activePlotList.length != 12){
+        activePlotList.pop();
+    }
     plotCounter = 0;
     for(let i =0; i<activePlotList.length; i++){
         if(activePlotList[i]){
             plotCounter++;
         }
     }
+}
+
+function getPlotData(){
+    let outwardsPlotlist = [];
+    plotList.forEach(plot => {
+        if(plot.hasChildNodes()){
+            outwardsPlotlist.push(plot.childNodes[0].outerHTML.substring(19,plot.childNodes[0].outerHTML.length-49));
+        }else{
+            outwardsPlotlist.push("none");
+        }
+    });
+    return outwardsPlotlist;
+}
+
+function plantOnPlot(crop){
+    switch(crop){
+        case 'stinkweed': gameLoop(0); break;
+        case 'blowflower': gameLoop(1); break;
+        case 'toxicshrooms': gameLoop(2); break;
+        case 'zucchini': gameLoop(3); break;
+        case 'purplestalk': gameLoop(4); break;
+        case 'quantumonions': gameLoop(5); break;
+        case 'tristemmedcarrots': gameLoop(6); break;
+        case 'greenglobleaf': gameLoop(7); break;
+        case 'greentree': gameLoop(8); break;
+        default: break;
+    }
+}
+
+function buffTime(){
+    setTimeout(() => {
+        clearInterval(slaughterID);
+        killTime = 5000;
+        startSlaughter();
+    }, buffRemainingTime);
+}
+
+function startSlaughter(){
+    slaughterID = setInterval(() => {
+        monsterCoins++;
+        monsterCoinsLabel.innerHTML = "Monster Coins: " + monsterCoins;
+        if(buffRemainingTime>0){
+            buffRemainingTime-=killTime;
+        }
+    }, killTime);
 }

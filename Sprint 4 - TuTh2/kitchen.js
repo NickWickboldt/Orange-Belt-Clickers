@@ -7,6 +7,8 @@ let threshold = {
 }
 let clickCounter = 0;
 let cooking = false;
+let sizzleSound = new Audio("./sounds/sizzle.mp3");
+let openSound = new Audio("./sounds/open.mp3");
 
 stove.addEventListener("click",()=>{
     if(cooking){
@@ -34,6 +36,10 @@ let farmSourcedCrops= [];
 let tempA = [];
 let battlefieldSourcedRecipes= [];
 let tempB = [];
+let buffRemainingTime = 0;
+let killTime = 0;
+let slaughterID;
+let monsterCoins = 0;
 
 window.addEventListener("load",()=>{
     farmSourcedCrops = window.sessionStorage.getItem("crop_storage");
@@ -57,10 +63,7 @@ window.addEventListener("load",()=>{
             cropStorageLabels[i].innerHTML = tempA[i];
         }
     }
-    console.log(tempA)
-});
-
-window.addEventListener("load",()=>{
+    startGrowthSimulation();
     battlefieldSourcedRecipes = window.sessionStorage.getItem("recipe_storage");
     if(battlefieldSourcedRecipes === null){
         for(let i =0; i<8; i++){
@@ -82,7 +85,25 @@ window.addEventListener("load",()=>{
             recipeStorageLabels[i].innerHTML = tempB[i];
         }
     }
-    console.log(tempB);
+    if(window.sessionStorage.getItem("monster_coins")===null){
+        monsterCoins = 0;
+    }else{
+        monsterCoins = parseInt(window.sessionStorage.getItem("monster_coins"));
+    }
+    buffRemainingTime = parseInt(window.sessionStorage.getItem("buff_remaining_time"));
+    if(isNaN(buffRemainingTime)){
+        buffRemainingTime = 0;
+    }
+    killTime = parseInt(window.sessionStorage.getItem("kill_time"));
+    if(isNaN(killTime)){
+        killTime=5000;
+    }
+    if(buffRemainingTime>0){
+        buffTime();
+        startSlaughter();
+    }else{
+        startSlaughter();
+    }
 });
 
 const battlefieldButton = document.querySelector(".battlefield-link");
@@ -91,6 +112,9 @@ battlefieldButton.addEventListener("click",()=>{
     let cropSender = tempA;
     window.sessionStorage.setItem("recipe_storage",recipeSender); //send sender
     window.sessionStorage.setItem("crop_storage",cropSender);
+    window.sessionStorage.setItem("buff_remaining_time", buffRemainingTime);
+    window.sessionStorage.setItem("kill_time",killTime);
+    window.sessionStorage.setItem("monster_coins",monsterCoins);
     window.location.href = "./battlefield.html";
 });
 const farmButton = document.querySelector(".farm-link");
@@ -99,6 +123,9 @@ farmButton.addEventListener("click",()=>{
     let recipeSender = tempB;
     window.sessionStorage.setItem("recipe_storage",recipeSender); //send sender
     window.sessionStorage.setItem("crop_storage",cropSender);
+    window.sessionStorage.setItem("buff_remaining_time", buffRemainingTime);
+    window.sessionStorage.setItem("kill_time",killTime);
+    window.sessionStorage.setItem("monster_coins",monsterCoins);
     window.location.href = "./farm.html";
 });
 
@@ -108,9 +135,11 @@ const recipeGrid = document.querySelector(".recipe-grid");
 const recipeButton = document.querySelector(".recipes");
 
 recipeButton.addEventListener("click",()=>{
+    openSound.play();
     recipePopup.style.visibility = "visible";
 });
 recipeX.addEventListener("click",()=>{
+    openSound.play();
     recipePopup.style.visibility = "hidden";
 });
 
@@ -203,9 +232,65 @@ function buyRecipe(recipeName, ingredientList){
 }
 
 function recipeIntoStove(name){
+    sizzleSound.play();
     const cookingIMG = document.createElement("img");
     cookingIMG.src = name.outerHTML.substring(10,name.outerHTML.length-35);
     cookingIMG.classList.add("cooking-recipe");
     ovenWindow.appendChild(cookingIMG);
     cooking = true;
+}
+
+function buffTime(){
+    setTimeout(() => {
+        clearInterval(slaughterID);
+        killTime = 5000;
+        startSlaughter();
+    }, buffRemainingTime);
+}
+
+function startSlaughter(){
+    slaughterID = setInterval(() => {
+        monsterCoins++;
+        if(buffRemainingTime>0){
+            buffRemainingTime-=killTime;
+        }
+    }, killTime);
+}
+
+function startGrowthSimulation(){
+    let growTime = parseInt(window.sessionStorage.getItem("growth_time"));
+    if(!(window.sessionStorage.getItem("active_crops") === null)){
+        let tempAC = window.sessionStorage.getItem("active_crops");
+        let tempG = '';
+        for(let i =0; i<tempAC.length; i++){
+            if(tempAC[i] === ','){
+                pickCrop(tempG,growTime);
+                tempG = '';
+            }else{
+                tempG += tempAC[i];
+            }
+        }pickCrop(tempG,growTime);
+    }
+}
+
+function pickCrop(crop, time){
+    switch(crop){
+        case 'stinkweed': simulateGrowth(0, time); break;
+        case 'blowflower': simulateGrowth(1, time); break;
+        case 'toxicshrooms': simulateGrowth(2, time); break;
+        case 'zucchini': simulateGrowth(3, time); break;
+        case 'purplestalk': simulateGrowth(4, time); break;
+        case 'quantumonions': simulateGrowth(5, time); break;
+        case 'tristemmedcarrots': simulateGrowth(6, time); break;
+        case 'greenglobleaf': simulateGrowth(7, time); break;
+        case 'greentree': simulateGrowth(8, time); break;
+        default: break;
+    }
+} 
+
+function simulateGrowth(cropID, time){
+    setInterval(() => {
+        tempA[cropID]++;
+        cropStorageLabels[cropID].innerHTML = tempA[cropID];
+    }, time);
 }
